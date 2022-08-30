@@ -50,6 +50,15 @@ namespace API_parking_bicis.Controllers
             return Ok(mappedParkingsCollection  )    ;
         }
 
+        // Pregunta, puedeo hacer un join y luego filtar por elemento del roin? ejm: Añadir username 
+
+        [HttpGet("GetParkingByUser")]
+        public async Task<IActionResult> GetParkingByUsername(string username) {
+            // Users Username = await  _ctx.Users.SingleAsync(user => user.Username == username);
+            var parkngsCollection = await _ctx.Parkings.Include(parking => parking.User).Where(parking => parking.User.Username == username).ToListAsync();
+            return Ok(parkngsCollection); 
+        }
+
 
     }
 }       
