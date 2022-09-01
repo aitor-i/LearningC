@@ -57,6 +57,14 @@ namespace API_parking_bicis.Controllers
             return Ok(mappedHistoiriesCollection);
         }
 
+        [HttpGet("HistoryByParkingId")]
+        public async Task<IActionResult> GetHistoryByParkingId([FromQuery] int parkingId)
+        {
+            IEnumerable<History> historiesCollection = await _ctx.Histories.Where(history => history.ParkingId == parkingId).ToArrayAsync();
+            IEnumerable<HistoryViewModel> mappedHistoriesCollection = _mapper.Map<IEnumerable<History>, IEnumerable<HistoryViewModel>>(historiesCollection);
+            return Ok(historiesCollection);
+        }
+
 
         [HttpPost("NewParkingUsage")]
         public async Task<IActionResult> NewParkingUsage(History usageForm)
