@@ -60,9 +60,17 @@ namespace API_parking_bicis.Controllers
         [HttpGet("HistoryByParkingId")]
         public async Task<IActionResult> GetHistoryByParkingId([FromQuery] int parkingId)
         {
+            try
+            {
             IEnumerable<History> historiesCollection = await _ctx.Histories.Where(history => history.ParkingId == parkingId).ToArrayAsync();
             IEnumerable<HistoryViewModel> mappedHistoriesCollection = _mapper.Map<IEnumerable<History>, IEnumerable<HistoryViewModel>>(historiesCollection);
             return Ok(historiesCollection);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
         }
 
 
