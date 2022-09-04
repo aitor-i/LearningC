@@ -70,6 +70,14 @@ namespace API_parking_bicis.Controllers
             }
         }
 
+        [HttpGet("GetParkingByUserId")]
+        public async Task<IActionResult> GetParkingByUserId([FromQuery]int userId)
+        {
+            IEnumerable<Parkings> parkingsCollection = await _ctx.Parkings.Where(parking => parking.UsersId == userId).Include(parking => parking.User).ToListAsync();
+            IEnumerable<ParkingViewModel> mappedParkingCollection = _mapper.Map<IEnumerable<Parkings>, IEnumerable<ParkingViewModel>>(parkingsCollection);
+            return Ok(mappedParkingCollection);
+        }
+
 
     }
 }       
