@@ -24,12 +24,28 @@ namespace API_parking_bicis.Controllers
         [HttpGet("AllHistory")]
         public async Task<IActionResult> GetAllHistory()
         {
-            var allHistoriesCollection = await _ctx.Histories.ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+            var allHistoriesCollection = await _ctx.Histories
+                                                    .ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider)
+                                                    .ToListAsync();
+
+            // var mappedHistoriesCollection = _mapper.Map<IEnumerable<History>, IEnumerable<HistoryViewModel>>(allHistoriesCollection);
 
 
             return Ok(allHistoriesCollection);
         }
 
+        [HttpGet("AllHistorySlim")]
+        public async Task<IActionResult> GetAllHistorySlim()
+        {
+            var allHistoriesCollection = await _ctx.Histories.ProjectTo<HistorySlimViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+
+            // var allHistoriesCollection = await _ctx.Histories
+                                                //.ToListAsync();
+      
+           // var mappedHistoriesCollection = _mapper.Map<IEnumerable<History>, IEnumerable<HistoryViewModel>>(allHistoriesCollection);
+
+            return Ok(allHistoriesCollection);
+        }
 
         [HttpGet("HistoryByParkingName")]
         public async Task<IActionResult> GetHistoryByParkingName([FromQuery] string parkingName)
@@ -41,7 +57,7 @@ namespace API_parking_bicis.Controllers
             // IEnumerable<History> parkingHistoryCollection = await _ctx.Histories.Where(history => history.ParkingId  == parking.Id).Include(history => history.User).ToListAsync();
             var parkingHistoryCollection = await _ctx.Histories
                                                      .Where(history => history.Parking.ParkinName.ToLower() == parkingName.ToLower())
-                                                     .ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider)
+                                                     .ProjectTo<HistorySlimViewModel>(_mapper.ConfigurationProvider)
                                                      .ToListAsync();
 
             /* var parkingHistoryCollection2 = await _ctx.Histories
@@ -59,7 +75,7 @@ namespace API_parking_bicis.Controllers
             IEnumerable<History> userHistoryCollection = await _ctx.Histories.Where(history => history.UserId == user.Id).Include(history => history.Parking).ToListAsync();
 
 
-            return Ok(_mapper.Map<IEnumerable<History>, IEnumerable<HistoryViewModel>>(userHistoryCollection));
+            return Ok(_mapper.Map<IEnumerable<History>, IEnumerable<HistorySlimViewModel>>(userHistoryCollection));
 
 
         }
@@ -67,7 +83,7 @@ namespace API_parking_bicis.Controllers
         [HttpGet("HistoryByUserId")]
         public async Task<IActionResult> GetHistoryByUserId([FromQuery] int userId)
         {
-            IEnumerable<HistoryViewModel> histoyesCollection = await _ctx.Histories.Where(history => history.Id == userId).ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider).ToArrayAsync();
+            IEnumerable<HistorySlimViewModel> histoyesCollection = await _ctx.Histories.Where(history => history.Id == userId).ProjectTo<HistorySlimViewModel>(_mapper.ConfigurationProvider).ToArrayAsync();
             return Ok(histoyesCollection);
         }
 
@@ -77,7 +93,7 @@ namespace API_parking_bicis.Controllers
             try
             {
                 IEnumerable<History> historiesCollection = await _ctx.Histories.Where(history => history.ParkingId == parkingId).ToArrayAsync();
-                IEnumerable<HistoryViewModel> mappedHistoriesCollection = _mapper.Map<IEnumerable<History>, IEnumerable<HistoryViewModel>>(historiesCollection);
+                IEnumerable<HistorySlimViewModel> mappedHistoriesCollection = _mapper.Map<IEnumerable<History>, IEnumerable<HistorySlimViewModel>>(historiesCollection);
                 return Ok(historiesCollection);
 
             }

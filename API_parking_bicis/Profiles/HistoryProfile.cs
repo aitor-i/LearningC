@@ -14,7 +14,7 @@ namespace API_parking_bicis.Profiles
 				.ForMember(historyMV => historyMV.Username, history => history.MapFrom(history => (history.User != null) ? history.User.Username : String.Empty));
 
 
-        }
+        }	
     }
 }
 

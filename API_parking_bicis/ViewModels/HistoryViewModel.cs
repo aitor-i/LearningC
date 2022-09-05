@@ -9,8 +9,8 @@ namespace API_parking_bicis.ViewModels
         public int UserId { get; set; }
         public int ParkingId { get; set; }
 
-        public string Username { get; set; }
-        public string ParkingName { get; set; }
+        public string Username { get; set; } = string.Empty;
+        public string ParkingName { get; set; } = string.Empty;
 
         public HistoryViewModel()
 		{
@@ -18,3 +18,4 @@ namespace API_parking_bicis.ViewModels
 	}
 }
 
+    
