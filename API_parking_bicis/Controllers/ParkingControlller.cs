@@ -3,6 +3,7 @@ using API_parking_bicis.data;
 using API_parking_bicis.Models;
 using API_parking_bicis.ViewModels;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -57,11 +58,12 @@ namespace API_parking_bicis.Controllers
         public async Task<IActionResult> GetParkingByUsername(string username) {
             try
             {
-            var user = await  _ctx.Users.SingleAsync(user => user.Username == username);
-            
-            IList<Parkings> parkingsCollection = await _ctx.Parkings.Where(parkings => parkings.UsersId == user.Id).ToListAsync();
-            var mappedParkingCollection = _mapper.Map<IEnumerable<Parkings>, IEnumerable<ParkingViewModel>>(parkingsCollection);
-            return Ok(mappedParkingCollection); 
+
+
+                IEnumerable<ParkingViewModel> parkingsCollection = await _ctx.Parkings.Where(parking => parking.User.Username == username)
+                                                                                        .ProjectTo<ParkingViewModel>(_mapper.ConfigurationProvider)
+                                                                                        .ToListAsync();
+                return Ok(parkingsCollection); 
 
             }
             catch (Exception ex)
