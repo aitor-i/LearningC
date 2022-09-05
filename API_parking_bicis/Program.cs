@@ -5,10 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+string dato1 = builder.Configuration.GetSection("misDatos")["dato1"];
+
 // Add services to the container.
-SqlConnectionStringBuilder config = new SqlConnectionStringBuilder("Server=localhost,1433;Initial Catalog=BicisApp;Encrypt=false;TrustServerCertificate=False;Connection Timeout=30;");
-config.UserID = "SA";
-config.Password = "Aitor123";
+SqlConnectionStringBuilder config = new SqlConnectionStringBuilder(builder.Configuration.GetConnectionString("connectionString"));
+config.UserID = builder.Configuration.GetSection("databaseEnvVars")["username"] ;
+config.Password = builder.Configuration.GetSection("databaseEnvVars")["password"];
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(config.ConnectionString));
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
