@@ -13,8 +13,11 @@ namespace API_parking_bicis.Profiles
 				  .ForMember(historyMV => historyMV.ParkingName, history => history.MapFrom(history => (history.Parking != null) ? history.Parking.ParkinName : String.Empty))
 				.ForMember(historyMV => historyMV.Username, history => history.MapFrom(history => (history.User != null) ? history.User.Username : String.Empty));
 
-
-        }	
+         /*   CreateMap<History, HistorySlimViewModel>()
+                 .ForMember(historyMV => historyMV.ParkingName, history => history.MapFrom(history => (history.Parking != null) ? history.Parking.ParkinName : String.Empty))
+               .ForMember(historyMV => historyMV.Username, history => history.MapFrom(history => (history.User != null) ? history.User.Username : String.Empty));
+		 */
+        }
     }
 }
 
