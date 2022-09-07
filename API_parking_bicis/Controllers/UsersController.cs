@@ -3,6 +3,7 @@ using API_parking_bicis.data;
 using API_parking_bicis.Models;
 using API_parking_bicis.ViewModels;
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,10 +15,12 @@ namespace API_parking_bicis.Controllers
 	{
         private readonly DataContext _ctx;
         private readonly IMapper _mapper;
-        public UsersController(DataContext ctx, IMapper mapper)
+        private readonly IValidator<Users> _validator;
+        public UsersController(DataContext ctx, IMapper mapper, IValidator<Users> validator)
         {
             _ctx = ctx;
             _mapper = mapper;
+            _validator = validator;
 
         }
 
@@ -38,6 +41,14 @@ namespace API_parking_bicis.Controllers
         [HttpPost("NewUser")]
         public async Task<IActionResult> PostNewUser(Users newUser)
         {
+            var result = _validator.Validate(newUser);
+
+            if (!result.IsValid)
+            {
+                return StatusCode(400, result.Errors);
+            }
+
+
             await _ctx.Users.AddAsync(newUser);
             await _ctx.SaveChangesAsync();
             return Ok(newUser.Id); 
@@ -45,7 +56,12 @@ namespace API_parking_bicis.Controllers
         [HttpPut("ModifyUser")]
         public async Task<IActionResult> ModifyUser(Users updatedUser)
         {
+            var result = _validator.Validate(updatedUser);
 
+            if (!result.IsValid)
+            {
+                return StatusCode(400, result.Errors);
+            }
             _ctx.Users.Update(updatedUser);
            await _ctx.SaveChangesAsync();
             return Ok(true);

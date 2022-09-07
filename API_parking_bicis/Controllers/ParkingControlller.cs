@@ -4,6 +4,7 @@ using API_parking_bicis.Models;
 using API_parking_bicis.ViewModels;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,16 +16,25 @@ namespace API_parking_bicis.Controllers
     {
         private readonly DataContext _ctx;
         private readonly IMapper _mapper;
-        public ParkingController(DataContext ctx, IMapper mapper)
+        private readonly IValidator<Parkings> _validator;
+        public ParkingController(DataContext ctx, IMapper mapper, IValidator<Parkings> validator)
         {
             _ctx = ctx;
             _mapper = mapper;
+            _validator = validator; 
             
         }
 
         [HttpPost("RegisterParking")]
         public async Task<IActionResult> PostRegisterParking(Parkings newParking)
         {
+            var result = _validator.Validate(newParking);
+
+            if (!result.IsValid)
+            {
+                return StatusCode(404, result.Errors);
+            }
+
             await _ctx.Parkings.AddAsync(newParking);
             await _ctx.SaveChangesAsync();
             
@@ -38,7 +48,7 @@ namespace API_parking_bicis.Controllers
             if(parkingToRemove is not null)
             {
                 _ctx.Parkings.Remove(parkingToRemove);
-                _ctx.SaveChangesAsync();    
+               await _ctx.SaveChangesAsync();    
                 return Ok(true);
             }
             return NotFound(false);
