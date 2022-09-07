@@ -130,7 +130,7 @@ app.MapPost("history/new-parking-usage", async (DataContext _ctx, History usageF
 });
 
 // API run
-app.Run();
+app.Run();  
 
 record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
 {
