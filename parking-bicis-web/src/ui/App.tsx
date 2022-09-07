@@ -1,11 +1,14 @@
 import React from "react";
-import logo from "./logo.svg";
+
+import History from "./components/History";
+
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
       <h1>Parking</h1>
+      <History />
     </div>
   );
 }

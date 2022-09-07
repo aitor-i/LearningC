@@ -1,0 +1,12 @@
+.histories-container {
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 10px;
+}
+.history-element {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin: 5px 0px;
+  padding: 5px 0px;
+}
