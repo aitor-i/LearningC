@@ -16,6 +16,17 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(confi
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "myCors",
+        policy => policy.WithOrigins("http://localhost:3000",
+                                    "http://www.contoso.com")
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod()
+                        );
+   
+});
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -30,6 +41,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("myCors");
 
 app.UseHttpsRedirection();
 

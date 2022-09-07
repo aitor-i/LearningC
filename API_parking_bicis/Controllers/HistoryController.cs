@@ -20,7 +20,7 @@ namespace API_parking_bicis.Controllers
             _mapper = mapper;
             _ctx = ctx;
         }
-
+        
         [HttpGet("AllHistory")]
         public async Task<IActionResult> GetAllHistory()
         {
