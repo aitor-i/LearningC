@@ -1,16 +1,19 @@
 import React from "react";
+import { LoginContextProvider } from "./store/loging-ctx";
 
 import History from "./components/History";
+import NewHistoryForm from "./components/NewHistoryForm";
 
 import "./App.css";
-import NewHistoryForm from "./components/NewHistoryForm";
 
 function App() {
   return (
     <div className="App">
-      <h1>Parking</h1>
-      <History />
-      <NewHistoryForm />
+      <LoginContextProvider>
+        <h1>Parking</h1>
+        <History />
+        <NewHistoryForm />
+      </LoginContextProvider>
     </div>
   );
 }
