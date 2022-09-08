@@ -15,10 +15,20 @@ export const NewHistoryForm = () => {
   const [parkingId, setParkingId] = useState<number>(0);
   const [enterTime, setEnterTime] = useState("");
   const [exitTime, setExitTime] = useState("");
+  const [fetchingStatus, setFetchingStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+
   const registerParkingForm = useRef<HTMLFormElement>(null);
 
   const fetchParkings = async () => {
-    setParkings(await getParkings());
+    setFetchingStatus("loading");
+    try {
+      setParkings(await getParkings());
+      setFetchingStatus("success");
+    } catch (error) {
+      setFetchingStatus("error");
+    }
   };
 
   useEffect(() => {
@@ -40,7 +50,7 @@ export const NewHistoryForm = () => {
       const newRegisterForm: parkingForm = {
         parkingId,
         startDate: enterTime,
-        stopDate: enterTime,
+        stopDate: exitTime,
         userId: 1,
       };
       const response = await postNewParkingUsage(newRegisterForm);
