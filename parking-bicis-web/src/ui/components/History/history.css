@@ -2,6 +2,8 @@
   border: 1px solid grey;
   border-radius: 10px;
   padding: 10px;
+  max-height: 40vh;
+  overflow-y: scroll;
 }
 .history-element {
   display: flex;
@@ -9,4 +11,10 @@
   justify-content: space-around;
   margin: 5px 0px;
   padding: 5px 0px;
+}
+
+.history-title {
+  position: sticky;
+  top: 0px;
+  background-color: wheat;
 }

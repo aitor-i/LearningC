@@ -3,7 +3,7 @@ import { getHistory } from "../../../core/services/getHistory";
 
 import "./history.css";
 
-interface History {
+interface HistoryType {
   id: number;
   parkingId: number;
   parkingName: string;
@@ -14,7 +14,7 @@ interface History {
 }
 
 export const History = () => {
-  const [history, setHistory] = useState<History[]>([]);
+  const [history, setHistory] = useState<HistoryType[]>([]);
 
   const fetchHistory = async () => {
     setHistory(await getHistory());
@@ -28,7 +28,7 @@ export const History = () => {
     <div>
       <h2>Parking usage history</h2>
       <div className="histories-container">
-        <p className="history-element">
+        <p className="history-element history-title">
           {" "}
           <span>Id</span>
           <span>ParkingName</span>
@@ -36,11 +36,11 @@ export const History = () => {
           <span>StartDate</span>
           <span>StopDate</span>
         </p>
-        {history.map((register) => (
+        {history.map((register, index) => (
           <p
             className="history-element"
             key={register.id}
-            style={register.id % 2 == 1 ? { backgroundColor: "lightgray" } : {}}
+            style={index % 2 === 1 ? { backgroundColor: "lightgray" } : {}}
           >
             <span>{register.id}</span>
             <span>{register.parkingName}</span>
