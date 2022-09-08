@@ -15,7 +15,7 @@ export const NewHistoryForm = () => {
   const [parkingId, setParkingId] = useState<number>(0);
   const [enterTime, setEnterTime] = useState("");
   const [exitTime, setExitTime] = useState("");
-  const registerParkingForm = useRef(null);
+  const registerParkingForm = useRef<HTMLFormElement>(null);
 
   const fetchParkings = async () => {
     setParkings(await getParkings());
@@ -35,17 +35,23 @@ export const NewHistoryForm = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
-    console.log("enterTime", enterTime);
-    console.log("parkingId", parkingId);
-    console.log("exitTime", exitTime);
-    const newRegisterForm: parkingForm = {
-      parkingId,
-      startDate: enterTime,
-      stopDate: enterTime,
-      userId: 1,
-    };
-    const response = await postNewParkingUsage(newRegisterForm);
-    console.log("response", response);
+
+    try {
+      const newRegisterForm: parkingForm = {
+        parkingId,
+        startDate: enterTime,
+        stopDate: enterTime,
+        userId: 1,
+      };
+      const response = await postNewParkingUsage(newRegisterForm);
+      alert(`Your registration id is ${response}`);
+    } catch (error) {
+      alert(error);
+    } finally {
+      if (registerParkingForm.current) {
+        registerParkingForm.current.reset();
+      }
+    }
   };
 
   const enterTimeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
