@@ -12,6 +12,7 @@ namespace API_parking_bicis.Profiles
 		{
 			CreateMap<Users, UserViewModel>()
 				.ForMember(x => x.UserTypeName, y => y.MapFrom(z => (z.UserType == null) ? String.Empty : z.UserType.Type));
+			CreateMap<UserViewModelNewUser, Users>();
 		}
 	}
 }

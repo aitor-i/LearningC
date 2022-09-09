@@ -10,7 +10,8 @@ namespace API_parking_bicis.data
 		public DbSet<Users> Users => Set<Users>();
 		public DbSet<Parkings> Parkings => Set<Parkings>();
 		public DbSet<UserType> UserTypes => Set<UserType>();
-
+        public DbSet<Passwords> Passwords => Set<Passwords>();
+        
        
 
 

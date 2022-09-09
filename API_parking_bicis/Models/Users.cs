@@ -10,8 +10,9 @@ namespace API_parking_bicis.Models
 
 		public ICollection<Parkings>? ParkingCollection { get; set; } = null;
         public ICollection<History>? HistoryCollection { get; set; } = null;
+		public Passwords Passwords { get; set; }
 
-        public UserType? UserType { get; set; } = null;
+		public UserType? UserType { get; set; } = null;
 
 
 		public Users()
@@ -20,4 +21,4 @@ namespace API_parking_bicis.Models
 	}
 }
 
-		
+			

@@ -3,6 +3,7 @@ using API_parking_bicis.data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_parking_bicis.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220908105653_password-table")]
+    partial class passwordtable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,8 +93,7 @@ namespace API_parking_bicis.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UsersId")
-                        .IsUnique();
+                    b.HasIndex("UsersId");
 
                     b.ToTable("Passwords");
                 });
@@ -173,8 +174,8 @@ namespace API_parking_bicis.Migrations
             modelBuilder.Entity("API_parking_bicis.Models.Passwords", b =>
                 {
                     b.HasOne("API_parking_bicis.Models.Users", "User")
-                        .WithOne("Passwords")
-                        .HasForeignKey("API_parking_bicis.Models.Passwords", "UsersId")
+                        .WithMany()
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -202,9 +203,6 @@ namespace API_parking_bicis.Migrations
                     b.Navigation("HistoryCollection");
 
                     b.Navigation("ParkingCollection");
-
-                    b.Navigation("Passwords")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("API_parking_bicis.Models.UserType", b =>

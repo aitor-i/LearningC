@@ -15,8 +15,8 @@ namespace API_parking_bicis.Controllers
 	{
         private readonly DataContext _ctx;
         private readonly IMapper _mapper;
-        private readonly IValidator<Users> _validator;
-        public UsersController(DataContext ctx, IMapper mapper, IValidator<Users> validator)
+        private readonly IValidator<UserViewModelNewUser> _validator;
+        public UsersController(DataContext ctx, IMapper mapper, IValidator<UserViewModelNewUser> validator)
         {
             _ctx = ctx;
             _mapper = mapper;
@@ -39,29 +39,58 @@ namespace API_parking_bicis.Controllers
         }
 
         [HttpPost("NewUser")]
-        public async Task<IActionResult> PostNewUser(Users newUser)
+        public async Task<IActionResult> PostNewUser(UserViewModelNewUser newUser)
         {
             var result = _validator.Validate(newUser);
+
+
+            var user = _mapper.Map< Users >(newUser);
+            Passwords newPassword = new Passwords();
+            newPassword.Password = newUser.Password;
+
+            user.Passwords = newPassword;
+
+
 
             if (!result.IsValid)
             {
                 return StatusCode(400, result.Errors);
             }
 
-
-            await _ctx.Users.AddAsync(newUser);
+            ;
+            await _ctx.Users.AddAsync(user);
             await _ctx.SaveChangesAsync();
-            return Ok(newUser.Id); 
+            return Ok(user.Id); 
+        }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginViewModel loginData)
+        {
+            try
+            {
+                var passwordDv = await _ctx.Passwords.Include(pass => pass.User).Where(pass => pass.User.Username == loginData.Username).ToListAsync();
+
+                if (passwordDv.Count == 0) return BadRequest(false);
+
+
+
+                if (passwordDv[0].Password == loginData.Password) return Ok(true);
+
+                return StatusCode(418, false);
+            }
+            catch (Exception ex)
+            {   
+                return StatusCode(500,ex.Message);
+            }
         }
         [HttpPut("ModifyUser")]
         public async Task<IActionResult> ModifyUser(Users updatedUser)
         {
-            var result = _validator.Validate(updatedUser);
+            // var result = _validator.Validate(updatedUser);
 
-            if (!result.IsValid)
-            {
-                return StatusCode(400, result.Errors);
-            }
+           // if (!result.IsValid)
+            //{
+           //     return StatusCode(400, result.Errors);
+           // }
             _ctx.Users.Update(updatedUser);
            await _ctx.SaveChangesAsync();
             return Ok(true);
