@@ -6,6 +6,7 @@ import NewHistoryForm from "./components/NewHistoryForm";
 
 import "./App.css";
 import { Header } from "./components/Header/Header";
+import { LoginForm } from "./components/LoginForm/LoginForm";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <LoginContextProvider>
         <Header />
         <History />
+        <LoginForm />
         <NewHistoryForm />
       </LoginContextProvider>
     </div>

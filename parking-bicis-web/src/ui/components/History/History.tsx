@@ -4,8 +4,6 @@ import { useGetHistory } from "./useGetHistory";
 
 import "./history.css";
 
-import type { HistoryType } from "../../../core/domain/type/HistoryType";
-
 export const History = () => {
   const { history, fetchingStatus, refreshHandler } = useGetHistory();
 
