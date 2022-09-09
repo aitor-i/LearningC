@@ -93,6 +93,7 @@ namespace API_parking_bicis.Controllers
             try
             {
                 IEnumerable<History> historiesCollection = await _ctx.Histories.Where(history => history.ParkingId == parkingId).ToArrayAsync();
+
                 IEnumerable<HistorySlimViewModel> mappedHistoriesCollection = _mapper.Map<IEnumerable<History>, IEnumerable<HistorySlimViewModel>>(historiesCollection);
                 return Ok(historiesCollection);
 

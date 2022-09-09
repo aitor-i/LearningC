@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API_parking_bicis", "API_pa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MINIMAL_API_parking_bicis", "MINIMAL_API_parking_bicis\MINIMAL_API_parking_bicis.csproj", "{197A2FED-B417-4611-88D5-288D066B2EF5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application_Parking_Bicis", "Application_Parking_Bicis\Application_Parking_Bicis.csproj", "{84BC443D-BADA-4246-9923-2CB985CD013D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{197A2FED-B417-4611-88D5-288D066B2EF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{197A2FED-B417-4611-88D5-288D066B2EF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{197A2FED-B417-4611-88D5-288D066B2EF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84BC443D-BADA-4246-9923-2CB985CD013D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84BC443D-BADA-4246-9923-2CB985CD013D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84BC443D-BADA-4246-9923-2CB985CD013D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84BC443D-BADA-4246-9923-2CB985CD013D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
