@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { parkingForm } from "../../../core/domain/type/parkingForm";
 import { getParkings } from "../../../core/services/getParkings";
 import { postNewParkingUsage } from "../../../core/services/postNewParkingUsage";
+import { LoginContext } from "../../store/loging-ctx";
 
 interface Parkings {
   id: number;
@@ -18,6 +19,8 @@ export const NewHistoryForm = () => {
   const [fetchingStatus, setFetchingStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
+
+  const { isLogged } = useContext(LoginContext);
 
   const registerParkingForm = useRef<HTMLFormElement>(null);
 
@@ -73,33 +76,39 @@ export const NewHistoryForm = () => {
   };
 
   return (
-    <form ref={registerParkingForm}>
-      <h2>Use parking</h2>
-      <label htmlFor="">Parking name</label>
-      <select
-        onChange={selectParkingHandler}
-        name="pname"
-        id="pname"
-        placeholder="Central parking"
-      >
-        <option key={"a"} value={0}>
-          Select a parking
-        </option>
-        {parkings.map((parking) => {
-          return (
-            <option key={parking.id} value={parking.id}>
-              {parking.parkinName}
+    <>
+      {isLogged ? (
+        <form ref={registerParkingForm}>
+          <h2>Use parking</h2>
+          <label htmlFor="">Parking name</label>
+          <select
+            onChange={selectParkingHandler}
+            name="pname"
+            id="pname"
+            placeholder="Central parking"
+          >
+            <option key={"a"} value={0}>
+              Select a parking
             </option>
-          );
-        })}
-      </select>
-      <label htmlFor="enter-time">Enter time</label>
-      <input type="time" id="enter-time" onChange={enterTimeHandler} />
+            {parkings.map((parking) => {
+              return (
+                <option key={parking.id} value={parking.id}>
+                  {parking.parkinName}
+                </option>
+              );
+            })}
+          </select>
+          <label htmlFor="enter-time">Enter time</label>
+          <input type="time" id="enter-time" onChange={enterTimeHandler} />
 
-      <label htmlFor="exit-time">Exit time</label>
-      <input type="time" id="exit-time" onChange={exitTimeHandler} />
+          <label htmlFor="exit-time">Exit time</label>
+          <input type="time" id="exit-time" onChange={exitTimeHandler} />
 
-      <button onClick={bookParkingsHandler}>Book it</button>
-    </form>
+          <button onClick={bookParkingsHandler}>Book it</button>
+        </form>
+      ) : (
+        <p>You must be logged to use the parking</p>
+      )}
+    </>
   );
 };

@@ -4,7 +4,11 @@ interface Props {
   children: React.ReactNode;
 }
 
-const LoginContext = React.createContext({});
+export const LoginContext = React.createContext({
+  isLogged: false,
+  loginHandler: () => {},
+  logOutHandler: () => {},
+});
 
 export const LoginContextProvider = ({ children }: Props) => {
   const [isLogged, setIsLogged] = useState(false);
