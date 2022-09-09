@@ -1,42 +1,13 @@
-import { useEffect, useState } from "react";
-import { getHistory } from "../../../core/services/getHistory";
 import Spinner from "../Spinner";
+
+import { useGetHistory } from "./useGetHistory";
 
 import "./history.css";
 
-interface HistoryType {
-  id: number;
-  parkingId: number;
-  parkingName: string;
-  startDate: string;
-  stopDate: string;
-  userId: number;
-  username: string;
-}
+import type { HistoryType } from "../../../core/domain/type/HistoryType";
 
 export const History = () => {
-  const [history, setHistory] = useState<HistoryType[]>([]);
-  const [fetchingStatus, setFetchingStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
-
-  const fetchHistory = async () => {
-    setFetchingStatus("loading");
-    try {
-      setHistory(await getHistory());
-      setFetchingStatus("success");
-    } catch (error) {
-      setFetchingStatus("error");
-    }
-  };
-
-  const refreshHandler = () => {
-    fetchHistory();
-  };
-
-  useEffect(() => {
-    fetchHistory();
-  }, []);
+  const { history, fetchingStatus, refreshHandler } = useGetHistory();
 
   return (
     <div>
