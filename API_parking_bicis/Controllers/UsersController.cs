@@ -72,8 +72,14 @@ namespace API_parking_bicis.Controllers
                 if (passwordDv.Count == 0) return BadRequest(false);
 
 
+                if (passwordDv[0].Password == loginData.Password)  {
 
-                if (passwordDv[0].Password == loginData.Password) return Ok(true);
+                    LoginResponseViewModel response = new LoginResponseViewModel();
+                    response.IsLogged = true;
+                    response.UserId = passwordDv[0].UsersId;
+
+                    return Ok(response);
+                }
 
                 return StatusCode(418, false);
             }
