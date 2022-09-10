@@ -1,5 +1,5 @@
 .histories-container {
-  border: 1px solid grey;
+  border: 2px solid rgba(255, 255, 255, 0.18);
   border-radius: 10px;
   padding: 10px;
   max-height: 40vh;
@@ -16,5 +16,12 @@
 .history-title {
   position: sticky;
   top: 0px;
-  background-color: wheat;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(2px);
+}
+
+.highlight {
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }

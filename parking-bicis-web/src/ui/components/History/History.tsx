@@ -25,9 +25,8 @@ export const History = () => {
             </p>
             {history.map((register, index) => (
               <p
-                className="history-element"
+                className={`history-element ${index % 2 === 1 && "highlight"} `}
                 key={register.id}
-                style={index % 2 === 1 ? { backgroundColor: "lightgray" } : {}}
               >
                 <span>{register.id}</span>
                 <span>{register.parkingName}</span>
