@@ -4,13 +4,8 @@ import Spinner from "../Spinner";
 import { useLogin } from "./useLogin";
 
 export const LoginForm = () => {
-  const {
-    fetchingStatus,
-    nameHandler,
-    passwordHandler,
-    submitHandler,
-    userId,
-  } = useLogin();
+  const { fetchingStatus, nameHandler, passwordHandler, submitHandler } =
+    useLogin();
   return (
     <form onSubmit={submitHandler}>
       <h2>Login </h2>
@@ -29,7 +24,6 @@ export const LoginForm = () => {
         onChange={passwordHandler}
         aria-label="password"
       />
-      <p>{userId}</p>
       {fetchingStatus === "loading" ? <Spinner /> : <button>Submit</button>}
     </form>
   );

@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { postLogin } from "../../../core/services/postLogin";
+import { LoginContext } from "../../store/loging-ctx";
 
 export const useLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [userId, setUserId] = useState(0);
   const [fetchingStatus, setFetchingStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
+
+  const { loginHandler, setUserIdHandler } = useContext(LoginContext);
 
   const nameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -21,7 +23,8 @@ export const useLogin = () => {
     setFetchingStatus("loading");
     try {
       const response = await postLogin({ username, password });
-      setUserId(response.userId);
+      setUserIdHandler(response.userId);
+      loginHandler();
       setFetchingStatus("success");
     } catch (error) {
       setFetchingStatus("error");
@@ -38,6 +41,5 @@ export const useLogin = () => {
     nameHandler,
     passwordHandler,
     fetchingStatus,
-    userId,
   };
 };
