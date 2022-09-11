@@ -12,10 +12,10 @@ export const Body = () => {
       {isLogged ? (
         <>
           <History />
-          <LoginForm />
+          <NewHistoryForm />
         </>
       ) : (
-        <NewHistoryForm />
+        <LoginForm />
       )}
     </Fragment>
   );
