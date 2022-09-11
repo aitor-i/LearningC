@@ -18,6 +18,7 @@
     hsl(200deg 36% 28%) 96%,
     hsl(203deg 30% 26%) 100%
   );
+  padding: 1.5rem;
 }
 
 html,
@@ -25,6 +26,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 h1,
 h2,
 h3 {
