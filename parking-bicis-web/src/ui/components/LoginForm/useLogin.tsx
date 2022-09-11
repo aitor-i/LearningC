@@ -9,7 +9,7 @@ export const useLogin = () => {
     "idle" | "loading" | "success" | "error"
   >("idle");
 
-  const { loginHandler, setUserIdHandler } = useContext(LoginContext);
+  const { setUserIdHandler } = useContext(LoginContext);
 
   const nameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -24,7 +24,6 @@ export const useLogin = () => {
     try {
       const response = await postLogin({ username, password });
       setUserIdHandler(response.userId);
-      loginHandler();
       setFetchingStatus("success");
     } catch (error) {
       setFetchingStatus("error");

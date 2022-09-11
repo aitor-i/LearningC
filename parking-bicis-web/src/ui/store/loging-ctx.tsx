@@ -26,6 +26,9 @@ export const LoginContextProvider = ({ children }: Props) => {
 
   const setUSerIdHandler = (id: number) => {
     setUserId(id);
+    if (id) {
+      loginHandler();
+    }
   };
 
   return (
