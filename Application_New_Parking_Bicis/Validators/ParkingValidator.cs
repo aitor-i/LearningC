@@ -2,9 +2,9 @@
 using Data_Parking_Bicis.Model;
 using FluentValidation;
 
-namespace API_parking_bicis.Validators
+namespace Application_Parking_Bicis.Validators
 {
-	public class ParkingValidator: AbstractValidator<Parkings>
+    public class ParkingValidator: AbstractValidator<Parkings>
 	{
 		public ParkingValidator()
 		{

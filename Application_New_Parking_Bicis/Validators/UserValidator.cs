@@ -1,9 +1,9 @@
 ﻿using System;
 using Application_Parking_Bicis.ViewModels;
 using FluentValidation;
-namespace API_parking_bicis.Validators
+namespace Application_Parking_Bicis.Validators
 {
-	public class UserValidator: AbstractValidator<UserViewModelNewUser>
+    public class UserValidator: AbstractValidator<UserViewModelNewUser>
 	{
 		public UserValidator()
 		{

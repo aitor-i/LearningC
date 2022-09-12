@@ -1,9 +1,10 @@
 ﻿using System;
-using API_parking_bicis.data;
-using API_parking_bicis.Models;
-using API_parking_bicis.ViewModels;
+using Application_Parking_Bicis.Interfaces;
+using Application_Parking_Bicis.ViewModels;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Data_Parking_Bicis.data;
+using Data_Parking_Bicis.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,26 +14,20 @@ namespace API_parking_bicis.Controllers
     [Route("[controller]")]
     public class HistoryController : ControllerBase
     {
-        private readonly DataContext _ctx;
-        private readonly IMapper _mapper;
-        public HistoryController(DataContext ctx, IMapper mapper)
+        private readonly IHistoryService _service;
+        public HistoryController(IHistoryService service)
         {
-            _mapper = mapper;
-            _ctx = ctx;
+            _service = service;
         }
         
         [HttpGet("AllHistory")]
         public async Task<IActionResult> GetAllHistory()
         {
-            var allHistoriesCollection = await _ctx.Histories
-                                                    .ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider)
-                                                    .ToListAsync();
 
-            // var mappedHistoriesCollection = _mapper.Map<IEnumerable<History>, IEnumerable<HistoryViewModel>>(allHistoriesCollection);
-
-
-            return Ok(allHistoriesCollection);
+            return Ok(await _service.GetAllHistory());
         }
+
+        /*
 
         [HttpGet("AllHistorySlim")]
         public async Task<IActionResult> GetAllHistorySlim()
@@ -64,10 +59,11 @@ namespace API_parking_bicis.Controllers
                                              .Where(history => history.Parking.ParkinName.ToLower() == parkingName.ToLower())
                                              .Select(x => new HistoryViewModel { })
                                              .ToListAsync();
-            */
+            
 
             return Ok(parkingHistoryCollection);
         }
+        
         [HttpGet("HistorybyUsername")]
         public async Task<IActionResult> GetHistoryByUsername([FromQuery] string username)
         {
@@ -79,6 +75,7 @@ namespace API_parking_bicis.Controllers
 
 
         }
+        
 
         [HttpGet("HistoryByUserId")]
         public async Task<IActionResult> GetHistoryByUserId([FromQuery] int userId)
@@ -103,25 +100,15 @@ namespace API_parking_bicis.Controllers
                 return StatusCode(500, "Server error");
             }
         }
-
+        */
 
         [HttpPost("NewParkingUsage")]
-        public async Task<IActionResult> NewParkingUsage(History usageForm)
+        public async Task<IActionResult> NewParkingUsage(HistoryViewModel usageForm)
         {
 
-            try
-            {
-                await _ctx.Histories.AddAsync(usageForm);
-                await _ctx.SaveChangesAsync();
-                return Ok(usageForm.Id);
-
-
-            }
-            catch (Exception ex)
-            {
-                return UnprocessableEntity(ex);
-            }
+            return Ok(await _service.NewParkingUsage(usageForm));
         }
+        
 
 
     }

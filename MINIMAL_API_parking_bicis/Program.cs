@@ -1,14 +1,11 @@
-﻿using API_parking_bicis.data;
-using API_parking_bicis.Models;
-using API_parking_bicis.ViewModels;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using FluentValidation;
-using API_parking_bicis.Validators;
+using Application_Parking_Bicis.RegisterDI;
+using Data_Parking_Bicis.RegisterDI;
+using Data_Parking_Bicis.data;
+using Application_Parking_Bicis.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,17 +14,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-string dato1 = builder.Configuration.GetSection("misDatos")["dato1"];
 
 // Add services to the container.
-SqlConnectionStringBuilder config = new SqlConnectionStringBuilder(builder.Configuration.GetConnectionString("connectionString"));
-config.UserID = builder.Configuration.GetSection("databaseEnvVars")["username"];
-config.Password = builder.Configuration.GetSection("databaseEnvVars")["password"];
-
-builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(config.ConnectionString));
-// builder.Services.AddAutoMapper(typeof (API_parking_bicis.Profiles));
-builder.Services.AddAutoMapper( AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddDataDependency(builder.Configuration);
+builder.Services.AddApplicationDependency();
 
 
 var app = builder.Build();
@@ -64,11 +54,9 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast");
 
 // Parking bicis
-app.MapGet("/history/all-history", async (DataContext _ctx, IMapper _mapper) => {
+app.MapGet("/history/all-history", async (IHistoryService _history_service) => {
 
-    var allHistoriesCollection = await _ctx.Histories
-                                                   .ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider)
-                                                   .ToListAsync();
+    var allHistoriesCollection = await _history_service.GetAllHistory();
     return allHistoriesCollection;
 });
 

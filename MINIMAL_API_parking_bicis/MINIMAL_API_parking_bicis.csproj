@@ -37,7 +37,7 @@
     <None Remove="FluentValidation.DependencyInjectionExtensions" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\API_parking_bicis\API_parking_bicis.csproj">
+    <ProjectReference Include="..\Application_New_Parking_Bicis\Application_Parking_Bicis.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>

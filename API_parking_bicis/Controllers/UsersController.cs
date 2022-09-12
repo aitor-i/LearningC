@@ -1,8 +1,9 @@
 ﻿using System;
-using API_parking_bicis.data;
-using API_parking_bicis.Models;
-using API_parking_bicis.ViewModels;
+using Application_Parking_Bicis.Interfaces;
+using Application_Parking_Bicis.ViewModels;
 using AutoMapper;
+using Data_Parking_Bicis.data;
+using Data_Parking_Bicis.Model;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,17 +14,13 @@ namespace API_parking_bicis.Controllers
     [Route("[controller]")]
     public class UsersController: ControllerBase
 	{
-        private readonly DataContext _ctx;
-        private readonly IMapper _mapper;
-        private readonly IValidator<UserViewModelNewUser> _validator;
-        public UsersController(DataContext ctx, IMapper mapper, IValidator<UserViewModelNewUser> validator)
+        private readonly IUserInterface _service;
+        public UsersController(IUserInterface service)
         {
-            _ctx = ctx;
-            _mapper = mapper;
-            _validator = validator;
 
+            _service = service;
         }
-
+        /*
         [HttpDelete("DeleteUser")]
         public async Task<IActionResult> DeleteUser(int userId)
         {
@@ -37,57 +34,22 @@ namespace API_parking_bicis.Controllers
             }
             return BadRequest();
         }
-
+        */
         [HttpPost("NewUser")]
         public async Task<IActionResult> PostNewUser(UserViewModelNewUser newUser)
         {
-            var result = _validator.Validate(newUser);
-
-
-            var user = _mapper.Map< Users >(newUser);
-            Passwords newPassword = new Passwords();
-            newPassword.Password = newUser.Password;
-
-            user.Passwords = newPassword;
-
-
-
-            if (!result.IsValid)
-            {
-                return StatusCode(400, result.Errors);
-            }
-
-            ;
-            await _ctx.Users.AddAsync(user);
-            await _ctx.SaveChangesAsync();
-            return Ok(user.Id); 
+            var response = await _service.RegisterNewUser(newUser);
+            if (!response.IsSuccess) return StatusCode(500);
+            return Ok(response.Response); 
         }
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginViewModel loginData)
         {
-            try
-            {
-                var passwordDv = await _ctx.Passwords.Include(pass => pass.User).Where(pass => pass.User.Username == loginData.Username).ToListAsync();
-
-                if (passwordDv.Count == 0) return BadRequest(false);
-
-
-                if (passwordDv[0].Password == loginData.Password)  {
-
-                    LoginResponseViewModel response = new LoginResponseViewModel();
-                    response.IsLogged = true;
-                    response.UserId = passwordDv[0].UsersId;
-
-                    return Ok(response);
-                }
-
-                return StatusCode(418, false);
-            }
-            catch (Exception ex)
-            {   
-                return StatusCode(500,ex.Message);
-            }
+            var response = await _service.Login(loginData);
+            if (!response.IsSuccess) return StatusCode(500);
+            return Ok(response.Response);
         }
+        /*
         [HttpPut("ModifyUser")]
         public async Task<IActionResult> ModifyUser(Users updatedUser)
         {
@@ -127,7 +89,7 @@ namespace API_parking_bicis.Controllers
            var mappedCollection = _mapper.Map<IEnumerable<Users>, IEnumerable<UserViewModel>>(usersCollection);
            return Ok(mappedCollection);
 
-        }
+        }*/
 
     }
 

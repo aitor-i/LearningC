@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using API_parking_bicis.data;
-using FluentValidation;
+ using Application_Parking_Bicis.RegisterDI;
+using Data_Parking_Bicis.RegisterDI;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,12 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 string dato1 = builder.Configuration.GetSection("misDatos")["dato1"];
 
 // Add services to the container.
-SqlConnectionStringBuilder config = new SqlConnectionStringBuilder(builder.Configuration.GetConnectionString("connectionString"));
-config.UserID = builder.Configuration.GetSection("databaseEnvVars")["username"] ;
-config.Password = builder.Configuration.GetSection("databaseEnvVars")["password"];
-builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(config.ConnectionString));
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+builder.Services.AddDataDependency(builder.Configuration);
+builder.Services.AddApplicationDependency();
 
 builder.Services.AddCors(options =>
 {

@@ -1,8 +1,8 @@
 ﻿using System;
-using API_parking_bicis.Models;
+using Data_Parking_Bicis.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace API_parking_bicis.data
+ namespace Data_Parking_Bicis.data
 {
 	public class DataContext:DbContext
 	{
