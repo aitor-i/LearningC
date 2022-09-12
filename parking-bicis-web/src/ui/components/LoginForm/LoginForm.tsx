@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { postLogin } from "../../../core/services/postLogin";
 import Spinner from "../Spinner";
 import { useLogin } from "./useLogin";
+
+import "./login-form.css";
 
 export const LoginForm = () => {
   const { fetchingStatus, nameHandler, passwordHandler, submitHandler } =
     useLogin();
   return (
-    <form onSubmit={submitHandler}>
+    <form className="login-form" onSubmit={submitHandler}>
       <h2>Login </h2>
       <h3>Username</h3>
 
