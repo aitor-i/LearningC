@@ -1,5 +1,7 @@
 import { useNewHistoryForm } from "./useNewHistoryForm";
 
+import "./new-history.css";
+
 export const NewHistoryForm = () => {
   const {
     parkings,
@@ -14,7 +16,7 @@ export const NewHistoryForm = () => {
   return (
     <>
       {isLogged ? (
-        <form ref={registerParkingForm}>
+        <form className="new-history-form" ref={registerParkingForm}>
           <h2>Use parking</h2>
           <label htmlFor="">Parking name</label>
           <select
