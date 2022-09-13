@@ -13,8 +13,11 @@ namespace Application_Parking_Bicis.Servicios
 	public class UserService: BaseService, IUserInterface
 
     {
+         private IValidator<UserViewModelNewUser> _validator { get; set; }
+
         public UserService(DataContext ctx, IMapper mapper, IValidator<UserViewModelNewUser> validator) : base(ctx, mapper)
         {
+            _validator = validator;
         }
 
         public async Task<ServiceComandResponse> Login(LoginViewModel loginData)
@@ -54,11 +57,12 @@ namespace Application_Parking_Bicis.Servicios
         public async Task<ServiceComandResponse> RegisterNewUser(UserViewModelNewUser newUser)
         {
             ServiceComandResponse comandResponse = new ServiceComandResponse() { IsSuccess = false };
-            // var result = _validator.Validate(newUser);
+             var result = _validator.Validate(newUser);
+            
 
             try
             {
-
+                if (!result.IsValid) throw new Exception("Invalid new user form");
                 var user = _mapper.Map<Users>(newUser);
                 Passwords newPassword = new Passwords();
                 newPassword.Password = newUser.Password;
