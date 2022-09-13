@@ -54,7 +54,9 @@ namespace API_parking_bicis.Controllers
         [HttpGet("AllParkings")]
         public async Task<IActionResult> GetAllParkings()
         {
-            return Ok(await _service.GetAllParkings() ) ;   
+            var response = await _service.GetAllParkings();
+            if (!response.IsSuccess) StatusCode(500);
+            return Ok(response.Data ) ;   
         }
 
         // Pregunta, puedeo hacer un join y luego filtar por elemento del roin? ejm: Añadir username 

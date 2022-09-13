@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application_Parking_Bicis.Interfaces;
+using Application_Parking_Bicis.Message;
 using Application_Parking_Bicis.ViewModels;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -18,30 +19,47 @@ namespace Application_Parking_Bicis.Servicios
         {
         }
 
-        public async Task<IEnumerable<HistoryViewModel>> GetAllHistory()
+        public async Task<ServiceQueryResponse<HistoryViewModel>> GetAllHistory()
         {
-            var allHistoriesCollection = await _ctx.Histories
-                                                    .ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider)
-                                                    .ToListAsync();
-            return allHistoriesCollection;
-        }
-
-        public async Task<int> NewParkingUsage(HistoryViewModel newParkingRegistration)
-        {
-            var mappedParkingRegistration = _mapper.Map<History>(newParkingRegistration);
-
+            ServiceQueryResponse<HistoryViewModel> response = new ServiceQueryResponse<HistoryViewModel>() { IsSuccess = false };
             try
             {
-                await _ctx.Histories.AddAsync(mappedParkingRegistration);
-                await _ctx.SaveChangesAsync();
-                return newParkingRegistration.Id;
+                var allHistoriesCollection = await _ctx.Histories
+                                                        .ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider)
+                                                        .ToListAsync();
+                response.IsSuccess = true;
+                response.Data = allHistoriesCollection;
 
 
             }
             catch (Exception ex)
             {
-                return -1;
+                response.IsSuccess = false;
             }
+            return response;
+        }
+
+        public async Task<ServiceComandResponse> NewParkingUsage(HistoryViewModel newParkingRegistration)
+        {
+            ServiceComandResponse response = new ServiceComandResponse() { IsSuccess = false };
+
+            try
+            {
+                var mappedParkingRegistration = _mapper.Map<History>(newParkingRegistration);
+                await _ctx.Histories.AddAsync(mappedParkingRegistration);
+                await _ctx.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Response = mappedParkingRegistration.Id;
+
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+            }
+
+            return response;
         }
 
 

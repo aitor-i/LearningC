@@ -23,8 +23,9 @@ namespace API_parking_bicis.Controllers
         [HttpGet("AllHistory")]
         public async Task<IActionResult> GetAllHistory()
         {
-
-            return Ok(await _service.GetAllHistory());
+            var response = await _service.GetAllHistory();
+            if (!response.IsSuccess) return StatusCode(500);
+            return Ok(response.Data);
         }
 
         /*
@@ -105,8 +106,9 @@ namespace API_parking_bicis.Controllers
         [HttpPost("NewParkingUsage")]
         public async Task<IActionResult> NewParkingUsage(HistoryViewModel usageForm)
         {
-
-            return Ok(await _service.NewParkingUsage(usageForm));
+            var response = await _service.NewParkingUsage(usageForm);
+            if (!response.IsSuccess) return StatusCode(500);
+            return Ok(response.Response);
         }
         
 
