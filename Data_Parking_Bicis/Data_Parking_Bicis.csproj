@@ -13,6 +13,8 @@
     <None Remove="Data\" />
     <None Remove="RegisterDI\" />
     <None Remove="Repository\" />
+    <None Remove="uow\" />
+    <None Remove="UOW\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
@@ -26,5 +28,7 @@
     <Folder Include="Data\" />
     <Folder Include="RegisterDI\" />
     <Folder Include="Repository\" />
+    <Folder Include="uow\" />
+    <Folder Include="UOW\" />
   </ItemGroup>
 </Project>

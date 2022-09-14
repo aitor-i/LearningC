@@ -10,16 +10,19 @@ using AutoMapper.QueryableExtensions;
 using Data_Parking_Bicis.data;
 using Data_Parking_Bicis.Model;
 using Data_Parking_Bicis.Repository;
+using Data_Parking_Bicis.uow;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application_Parking_Bicis.Servicios
 {
 	public class HistoryService:BaseService,  IHistoryService
     {
-        private readonly IHistoryRepository _historyRepository;
-        public HistoryService(DataContext ctx, IMapper mapper,IHistoryRepository historyRepository) : base( mapper)
+      
+        private readonly IUnitOfWork _unitOfWork;
+        public HistoryService( IMapper mapper, IUnitOfWork unitOfWork) : base( mapper)
         {
-            _historyRepository = historyRepository;
+           
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<ServiceQueryResponse<HistoryViewModel>> GetAllHistory()
@@ -27,12 +30,11 @@ namespace Application_Parking_Bicis.Servicios
             ServiceQueryResponse<HistoryViewModel> response = new ServiceQueryResponse<HistoryViewModel>() { IsSuccess = false };
             try
             {
-                var allHistoriesCollection = await _historyRepository.GetValues();
-                var mappedHistoryCollection = _mapper.Map<IEnumerable<HistoryViewModel>>(allHistoriesCollection);
+                var allHistoriesCollection = await _unitOfWork.HistoryRepository.GetQuery().ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider).ToListAsync();
                 
                                                                                                              
                 response.IsSuccess = true;
-                response.Data = mappedHistoryCollection;
+                response.Data = allHistoriesCollection;
 
 
             }
@@ -50,7 +52,7 @@ namespace Application_Parking_Bicis.Servicios
             try
             {
                 var mappedParkingRegistration = _mapper.Map<History>(newParkingRegistration);
-                var res = await _historyRepository.Insert(mappedParkingRegistration);
+                var res = await _unitOfWork.HistoryRepository.Insert(mappedParkingRegistration);
 
                 response.IsSuccess = true;
                 response.Response = res;
