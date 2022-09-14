@@ -7,7 +7,7 @@ namespace Application_Parking_Bicis.Interfaces
 {
 	public interface IUserInterface
 	{
-		Task<ServiceComandResponse> Login(LoginModel loginForm);
+		Task<ServiceComandResponse> Login(LoginViewModel loginForm);
 		Task<ServiceComandResponse> RegisterNewUser(UserViewModelNewUser newUser);
 
 	}

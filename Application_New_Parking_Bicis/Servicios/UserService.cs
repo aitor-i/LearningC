@@ -25,14 +25,14 @@ namespace Application_Parking_Bicis.Servicios
             _passwordRepository = passwordRepository;
         }
 
-        public async Task<ServiceComandResponse> Login(LoginModel loginData)
+        public async Task<ServiceComandResponse> Login(LoginViewModel loginData)
         {
             ServiceComandResponse commandResponse = new ServiceComandResponse() { IsSuccess = false };
             try
             {
                  // var passwordDv = await _ctx.Passwords.Include(pass => pass.User).Where(pass => pass.User.Username == loginData.Username).ToListAsync();
                 // passwordDv = await _passwordRepository.GetValues().Include(pass => pass.User).Where(pass => pass.User.Username == loginData.Username);
-                var passwordDv = await _passwordRepository.GetPasswords(loginData);
+                var passwordDv = await _passwordRepository.GetPasswords(loginData.Username);
 
                 if (passwordDv.Count == 0) throw new InvalidDataException();
 
