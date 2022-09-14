@@ -75,11 +75,10 @@ namespace Application_Parking_Bicis.Servicios
                 newPassword.Password = newUser.Password;
 
                 user.Passwords = newPassword;
-                await _ctx.Users.AddAsync(user);
-                await _ctx.SaveChangesAsync();
+                var res = await _userRepository.Insert(user);
 
                 comandResponse.IsSuccess = true;
-                comandResponse.Response = user.Id;
+                comandResponse.Response = res;
 
 
             }
