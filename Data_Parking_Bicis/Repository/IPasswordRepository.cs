@@ -6,7 +6,7 @@ namespace Data_Parking_Bicis.Repository
 {
 	public interface IPasswordRepository:IGenericRepository<Passwords>
 	{
-		Task<List<Passwords>> GetPasswords(LoginModel loginData);
+		Task<List<Passwords>> GetPasswords(string username);
 	}
 
 }

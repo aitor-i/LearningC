@@ -12,9 +12,9 @@ namespace Data_Parking_Bicis.Repository
 		{
 		}
 
-		public async Task<List<Passwords>> GetPasswords(LoginModel loginData)
+		public async Task<List<Passwords>> GetPasswords(string username)
 		{
-            return await _ctx.Set<Passwords>().Include(pass => pass.User).Where(pass => pass.User.Username == loginData.Username).ToListAsync();
+            return await _ctx.Set<Passwords>().Where(pass => pass.User.Username == username).ToListAsync();
 
            
         }

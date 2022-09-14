@@ -12,6 +12,11 @@ namespace Data_Parking_Bicis.Repository
             _ctx = ctx;
 		}
 
+        public IQueryable<T> GetQuery()
+        {
+            return _ctx.Set<T>();
+        }
+
         public async Task<IEnumerable<T>> GetValues()
         {
             return await _ctx.Set<T>().ToListAsync();
