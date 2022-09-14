@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Data_Parking_Bicis.Models;
 
 namespace Data_Parking_Bicis.Model
 {
-	public class History
+	public class History: EntityBase
 	{
-		public int Id { get; set; }
 		public string StartDate { get; set; } = string.Empty;
 		public string StopDate { get; set; } = string.Empty;
 		public int UserId { get; set; }
