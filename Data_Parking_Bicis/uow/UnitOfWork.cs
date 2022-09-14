@@ -1,14 +1,15 @@
 ﻿using System;
 using Data_Parking_Bicis.data;
 using Data_Parking_Bicis.Repository;
-using Data_Parking_Bicis.UOW;
+using Data_Parking_Bicis.uow;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data_Parking_Bicis.UOW
+namespace Data_Parking_Bicis.uow
 {
 	public class UnitOfWork: IUnitOfWork, IDisposable
 	{
         public IUserRepository UserRepository { get; private set; }
+        public IHistoryRepository HistoryRepository { get; private set; }
         private readonly DataContext _ctx;
 		public UnitOfWork()
 		{
@@ -17,7 +18,7 @@ namespace Data_Parking_Bicis.UOW
 
         public UnitOfWork(DataContext ctx)
         {
-            UserRepository = new UserRepository(ctx);
+            HistoryRepository = new HistoryRepository(ctx);
             _ctx = ctx;
         }
 
