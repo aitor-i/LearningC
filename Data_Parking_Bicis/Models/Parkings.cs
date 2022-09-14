@@ -1,10 +1,11 @@
 ﻿using System;
+using Data_Parking_Bicis.Models;
+
 namespace Data_Parking_Bicis.Model
 {
-	public class Parkings
+	public class Parkings:EntityBase
 	{
 
-		public int Id { get; set; }
 		public string ParkinName { get; set; } = string.Empty;
 		public int UsersId { get; set; }
 
