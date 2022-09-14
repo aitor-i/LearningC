@@ -6,7 +6,7 @@ namespace Application_Parking_Bicis.Servicios
 {
 	public abstract class BaseService
 	{
-		protected readonly DataContext _ctx;
+		protected readonly DataContext? _ctx;
 		protected readonly IMapper _mapper;
 
 
@@ -15,6 +15,11 @@ namespace Application_Parking_Bicis.Servicios
 			_ctx = ctx;
 			_mapper = mapper;
 		}
-	}
+        public BaseService( IMapper mapper)
+        {
+			_ctx = null;
+            _mapper = mapper;
+        }
+    }
 }
 

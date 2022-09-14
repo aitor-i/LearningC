@@ -20,6 +20,7 @@
     <None Remove="FluentValidation" />
     <None Remove="FluentValidation.DependencyInjectionExtensions" />
     <None Remove="Message\" />
+    <None Remove="Repository\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />
@@ -29,6 +30,7 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Validators\" />
     <Folder Include="Message\" />
+    <Folder Include="Repository\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />

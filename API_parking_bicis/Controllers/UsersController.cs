@@ -43,7 +43,7 @@ namespace API_parking_bicis.Controllers
             return Ok(response.Response); 
         }
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginViewModel loginData)
+        public async Task<IActionResult> Login(LoginModel loginData)
         {
             var response = await _service.Login(loginData);
             if (!response.IsSuccess) return StatusCode(500);

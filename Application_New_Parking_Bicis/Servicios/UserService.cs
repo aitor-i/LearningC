@@ -5,6 +5,7 @@ using Application_Parking_Bicis.ViewModels;
 using AutoMapper;
 using Data_Parking_Bicis.data;
 using Data_Parking_Bicis.Model;
+using Data_Parking_Bicis.Repository;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,18 +15,24 @@ namespace Application_Parking_Bicis.Servicios
 
     {
          private IValidator<UserViewModelNewUser> _validator { get; set; }
+        private readonly IUserRepository _userRepository;
+        private readonly IPasswordRepository _passwordRepository;
 
-        public UserService(DataContext ctx, IMapper mapper, IValidator<UserViewModelNewUser> validator) : base(ctx, mapper)
+        public UserService(DataContext ctx, IMapper mapper, IValidator<UserViewModelNewUser> validator, IUserRepository userRepository, IPasswordRepository passwordRepository ) : base(ctx, mapper)
         {
             _validator = validator;
+            _userRepository = userRepository;
+            _passwordRepository = passwordRepository;
         }
 
-        public async Task<ServiceComandResponse> Login(LoginViewModel loginData)
+        public async Task<ServiceComandResponse> Login(LoginModel loginData)
         {
             ServiceComandResponse commandResponse = new ServiceComandResponse() { IsSuccess = false };
             try
             {
-                var passwordDv = await _ctx.Passwords.Include(pass => pass.User).Where(pass => pass.User.Username == loginData.Username).ToListAsync();
+                 // var passwordDv = await _ctx.Passwords.Include(pass => pass.User).Where(pass => pass.User.Username == loginData.Username).ToListAsync();
+                // passwordDv = await _passwordRepository.GetValues().Include(pass => pass.User).Where(pass => pass.User.Username == loginData.Username);
+                var passwordDv = await _passwordRepository.GetPasswords(loginData);
 
                 if (passwordDv.Count == 0) throw new InvalidDataException();
 
