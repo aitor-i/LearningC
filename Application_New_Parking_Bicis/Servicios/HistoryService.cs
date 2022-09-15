@@ -31,8 +31,7 @@ namespace Application_Parking_Bicis.Servicios
             try
             {
                 var allHistoriesCollection = await _unitOfWork.HistoryRepository.GetQuery().ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider).ToListAsync();
-                
-                                                                                                             
+                                                                                                                             
                 response.IsSuccess = true;
                 response.Data = allHistoriesCollection;
 

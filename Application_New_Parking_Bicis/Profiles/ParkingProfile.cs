@@ -11,7 +11,8 @@ namespace Application_Parking_Bicis.Profiles
 		{
 			CreateMap<Parkings, ParkingViewModel>()
 				.ForMember(parkingsVM => parkingsVM.Username, parking => parking.MapFrom(parking => (parking.User != null) ? parking.User.Username : String.Empty)
-				);	
+				);
+			CreateMap<ParkingViewModel, Parkings>();
 		}
 	}
 }
