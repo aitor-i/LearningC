@@ -17,7 +17,7 @@ namespace Data_Parking_Bicis.Repository
         {
             
            
-                T element = await _ctx.Set<T>().FindAsync(predicate);
+                T element = await _ctx.Set<T>().FindAsync(predicate.Id);
                 return element;
             
         
