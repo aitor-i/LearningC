@@ -10,6 +10,9 @@ namespace Data_Parking_Bicis.uow
 	{
         public IUserRepository UserRepository { get; private set; }
         public IHistoryRepository HistoryRepository { get; private set; }
+        public IParkingRepository ParkingRepository { get; private set; }
+        public IPasswordRepository PasswordRepository { get; private set; }
+
         private readonly DataContext _ctx;
 		public UnitOfWork()
 		{
@@ -19,6 +22,10 @@ namespace Data_Parking_Bicis.uow
         public UnitOfWork(DataContext ctx)
         {
             HistoryRepository = new HistoryRepository(ctx);
+            ParkingRepository = new ParkingRepository(ctx);
+            UserRepository = new UserRepository(ctx);
+            PasswordRepository = new PasswordRepository(ctx);
+
             _ctx = ctx;
         }
 

@@ -7,6 +7,8 @@ namespace Data_Parking_Bicis.uow
 	{
         IUserRepository UserRepository { get; }
         IHistoryRepository HistoryRepository { get; }
+        IParkingRepository ParkingRepository { get; }
+        IPasswordRepository PasswordRepository { get; }
         Task CompleteAsync();
     }
 }
