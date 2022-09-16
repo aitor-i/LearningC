@@ -44,6 +44,29 @@ namespace Application_Parking_Bicis.Servicios
             return response;
         }
 
+        public async Task<ServiceQueryResponse<HistoryViewModel>> SearchHistory(string patern)
+        {
+            ServiceQueryResponse<HistoryViewModel> response = new ServiceQueryResponse<HistoryViewModel>();
+
+            try
+            {
+                var filteredHistoriesCollection = await _unitOfWork.HistoryRepository.GetQuery()
+                                                                                 .Where(history => history.User.Username == patern)
+                                                                                 .ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider)
+                                                                                 .ToListAsync();
+
+                response.IsSuccess = true;
+                response.Data = filteredHistoriesCollection;
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+            }
+
+            return response;
+        }
+
         public async Task<ServiceComandResponse> NewParkingUsage(HistoryViewModel newParkingRegistration)
         {
             ServiceComandResponse response = new ServiceComandResponse() { IsSuccess = false };

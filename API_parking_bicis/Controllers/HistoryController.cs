@@ -110,7 +110,15 @@ namespace API_parking_bicis.Controllers
             if (!response.IsSuccess) return StatusCode(500);
             return Ok(response.Response);
         }
-        
+
+        [HttpPost("search")]
+        public async Task<IActionResult> Search(string expresion)
+        {
+            var response = await _service.SearchHistory(expresion);
+            if (!response.IsSuccess) return StatusCode(500);
+            return Ok(response.Data);
+        }
+
 
 
     }

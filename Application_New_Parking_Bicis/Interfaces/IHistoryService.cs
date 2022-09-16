@@ -11,9 +11,11 @@ namespace Application_Parking_Bicis.Interfaces
 	public interface IHistoryService
 	{
 		// IActionResult ?
-		 Task<ServiceQueryResponse<HistoryViewModel>>  GetAllHistory();
+		Task<ServiceQueryResponse<HistoryViewModel>>  GetAllHistory();
 		Task<ServiceComandResponse> NewParkingUsage(HistoryViewModel newParkingRegistration);
-	}
+		Task<ServiceQueryResponse<HistoryViewModel>> SearchHistory(string patern);
+
+    }
 }
 
 	

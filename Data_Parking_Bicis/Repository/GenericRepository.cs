@@ -17,7 +17,7 @@ namespace Data_Parking_Bicis.Repository
         {
             
            
-                T element = await _ctx.Set<T>().FindAsync(predicate.Id);
+                T? element = await _ctx.Set<T>().FindAsync( predicate.Id);
                 return element;
             
         
@@ -43,14 +43,14 @@ namespace Data_Parking_Bicis.Repository
 
         public async Task<IEnumerable<T>> Search(string predicate)
         {
-            /*IEnumerable<T>? collection;
+            /* IEnumerable<T>? collection;
             var names = typeof(T).GetProperties()
                                  .Select(property => property.Name)
                                  .ToArray();
             foreach (var name in names)
             {
                 collection.Append(await _ctx.Set<T>().Where(x => x.name.ToString() == predicate).ToListAsync());
-            }*/
+            } */
 
             
             // await _ctx.Set<T>().FindAsync(predicate).ToListAsync();
