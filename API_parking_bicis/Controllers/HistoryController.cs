@@ -1,5 +1,6 @@
 ﻿using System;
 using API_parking_bicis.Handler;
+using API_parking_bicis.Request.Command;
 using API_parking_bicis.Request.Query;
 using Application_Parking_Bicis.Message;
 using Application_Parking_Bicis.Servicios.Interfaces;
@@ -112,7 +113,7 @@ namespace API_parking_bicis.Controllers
         [HttpPost("NewParkingUsage")]
         public async Task<IActionResult> NewParkingUsage(HistoryViewModel usageForm)
         {
-            var response = await _service.NewParkingUsage(usageForm);
+            var response = await _mediator.Send<ServiceComandResponse>(new RegisterNewParkingUsageRequest(usageForm));
             if (!response.IsSuccess) return StatusCode(500);
             return Ok(response.Response);
         }
