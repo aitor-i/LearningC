@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Reflection;
-using Data_Parking_Bicis.data;
+using Application_Parking_Bicis.Repository;
+using Application_Parking_Bicis.UOW;
 using Data_Parking_Bicis.Repository;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Application_Parking_Bicis.RegisterDI
+namespace Infrastructura_Parking_Bicis.RegisterDI
 {
 	public static class RegisterDI_Extension
 	{
 	
 
-        public static IServiceCollection AddDataDependency(this IServiceCollection service, IConfiguration configuration)
+        public static IServiceCollection AddInfrastructureDependency(this IServiceCollection service, IConfiguration configuration)
         {
 
             SqlConnectionStringBuilder config = new SqlConnectionStringBuilder(configuration.GetConnectionString("connectionString"));
@@ -25,6 +26,8 @@ namespace Application_Parking_Bicis.RegisterDI
             service.AddTransient<IParkingRepository, ParkingRepository>();
             service.AddTransient<IUserRepository, UserRepository>();
             service.AddTransient<IPasswordRepository, PasswordRepository>();
+            service.AddTransient<IUnitOfWork, UnitOfWork>();
+
 
             return service;
         }

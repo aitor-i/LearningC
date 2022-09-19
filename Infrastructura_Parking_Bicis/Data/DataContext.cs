@@ -2,7 +2,7 @@
 using Data_Parking_Bicis.Model;
 using Microsoft.EntityFrameworkCore;
 
- namespace Data_Parking_Bicis.data
+namespace Infrastructura_Parking_Bicis
 {
 	public class DataContext:DbContext
 	{

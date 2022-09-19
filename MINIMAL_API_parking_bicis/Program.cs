@@ -2,10 +2,15 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using Application_Parking_Bicis.RegisterDI;
 using Data_Parking_Bicis.RegisterDI;
-using Data_Parking_Bicis.data;
-using Application_Parking_Bicis.Interfaces;
+using Infrastructura_Parking_Bicis.RegisterDI;
+using Infrastructura_Parking_Bicis;
+using AutoMapper;
+using Application_Parking_Bicis.Servicios.Interfaces;
+using AutoMapper.QueryableExtensions;
+using Application_Parking_Bicis.ViewModels;
+using Data_Parking_Bicis.Model;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +21,7 @@ builder.Services.AddSwaggerGen();
 
 
 // Add services to the container.
-builder.Services.AddDataDependency(builder.Configuration);
+builder.Services.AddInfrastructureDependency(builder.Configuration);
 builder.Services.AddApplicationDependency();
 
 

@@ -1,7 +1,8 @@
 ﻿using System;
+using Application_Parking_Bicis.Repository;
 using Application_Parking_Bicis.ViewModels;
-using Data_Parking_Bicis.data;
 using Data_Parking_Bicis.Model;
+using Infrastructura_Parking_Bicis;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data_Parking_Bicis.Repository

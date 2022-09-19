@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Data_Parking_Bicis.Models;
+using Application_Parking_Bicis.Repository;
+using Data_Parking_Bicis.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data_Parking_Bicis.Repository
+namespace Infrastructura_Parking_Bicis
 {
 	public class GenericRepository<T>:IGenericRepository<T> where T : EntityBase
 	{
@@ -41,7 +42,7 @@ namespace Data_Parking_Bicis.Repository
             return entity.Id;
         }
 
-        public async Task<IEnumerable<T>> Search(string predicate)
+        public async Task<IEnumerable<T>> Search(Expression<Func<T,bool>> predicate)
         {
             /* IEnumerable<T>? collection;
             var names = typeof(T).GetProperties()
@@ -52,9 +53,10 @@ namespace Data_Parking_Bicis.Repository
                 collection.Append(await _ctx.Set<T>().Where(x => x.name.ToString() == predicate).ToListAsync());
             } */
 
-            
+
             // await _ctx.Set<T>().FindAsync(predicate).ToListAsync();
-            throw new NotImplementedException();
+            return await _ctx.Set<T>().Where(predicate).ToListAsync();
+            
         }
     }
 }

@@ -1,10 +1,13 @@
 ﻿using System;
-using Application_Parking_Bicis.Interfaces;
+using API_parking_bicis.Handler;
+using API_parking_bicis.Request.Query;
+using Application_Parking_Bicis.Message;
+using Application_Parking_Bicis.Servicios.Interfaces;
 using Application_Parking_Bicis.ViewModels;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Data_Parking_Bicis.data;
 using Data_Parking_Bicis.Model;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,15 +18,18 @@ namespace API_parking_bicis.Controllers
     public class HistoryController : ControllerBase
     {
         private readonly IHistoryService _service;
-        public HistoryController(IHistoryService service)
+        private readonly IMediator _mediator;
+        public HistoryController(IHistoryService service, IMediator mediator)
         {
             _service = service;
+            _mediator = mediator;
         }
         
         [HttpGet("AllHistory")]
         public async Task<IActionResult> GetAllHistory()
         {
-            var response = await _service.GetAllHistory();
+
+            var response =  await _mediator.Send<ServiceQueryResponse<HistoryViewModel>>(new GetAllHistoryRequest());
             if (!response.IsSuccess) return StatusCode(500);
             return Ok(response.Data);
         }
@@ -114,7 +120,7 @@ namespace API_parking_bicis.Controllers
         [HttpPost("search")]
         public async Task<IActionResult> Search(string expresion)
         {
-            var response = await _service.SearchHistory(expresion);
+            var response = await _mediator.Send<ServiceQueryResponse<HistoryViewModel>>(new SearchRequest(expresion));
             if (!response.IsSuccess) return StatusCode(500);
             return Ok(response.Data);
         }

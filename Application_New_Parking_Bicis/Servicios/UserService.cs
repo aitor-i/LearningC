@@ -1,12 +1,10 @@
 ﻿using System;
-using Application_Parking_Bicis.Interfaces;
 using Application_Parking_Bicis.Message;
+using Application_Parking_Bicis.Servicios.Interfaces;
+using Application_Parking_Bicis.UOW;
 using Application_Parking_Bicis.ViewModels;
 using AutoMapper;
-using Data_Parking_Bicis.data;
 using Data_Parking_Bicis.Model;
-using Data_Parking_Bicis.Repository;
-using Data_Parking_Bicis.uow;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +16,7 @@ namespace Application_Parking_Bicis.Servicios
         private IValidator<UserViewModelNewUser> _validator { get; set; }
         private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(DataContext ctx, IMapper mapper, IValidator<UserViewModelNewUser> validator, IUnitOfWork unitOfWork) : base(ctx, mapper)
+        public UserService( IMapper mapper, IValidator<UserViewModelNewUser> validator, IUnitOfWork unitOfWork) : base( mapper)
         {
             _validator = validator;
             _unitOfWork = unitOfWork;

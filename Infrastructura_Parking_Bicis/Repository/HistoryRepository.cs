@@ -1,6 +1,7 @@
 ﻿using System;
-using Data_Parking_Bicis.data;
+using Application_Parking_Bicis.Repository;
 using Data_Parking_Bicis.Model;
+using Infrastructura_Parking_Bicis;
 
 namespace Data_Parking_Bicis.Repository
 {

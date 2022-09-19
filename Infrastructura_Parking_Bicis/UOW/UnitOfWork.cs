@@ -1,10 +1,10 @@
 ﻿using System;
-using Data_Parking_Bicis.data;
+using Application_Parking_Bicis.Repository;
+using Application_Parking_Bicis.UOW;
 using Data_Parking_Bicis.Repository;
-using Data_Parking_Bicis.uow;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data_Parking_Bicis.uow
+namespace Infrastructura_Parking_Bicis
 {
 	public class UnitOfWork: IUnitOfWork, IDisposable
 	{

@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="UOW\" />
+    <None Remove="Repository\" />
+    <None Remove="Microsoft.EntityFrameworkCore" />
+    <None Remove="Data\" />
+    <None Remove="RegisterDI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UOW\" />
+    <Folder Include="Repository\" />
+    <Folder Include="Data\" />
+    <Folder Include="RegisterDI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application_New_Parking_Bicis\Application_Parking_Bicis.csproj" />
+  </ItemGroup>
+</Project>

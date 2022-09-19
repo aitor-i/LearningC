@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,10 +22,27 @@
     <None Remove="FluentValidation" />
     <None Remove="FluentValidation.AspNetCore" />
     <None Remove="FluentValidation.DependencyInjectionExtensions" />
+    <None Remove="MediatR" />
+    <None Remove="MediatR.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="Request\" />
+    <None Remove="Handler\" />
+    <None Remove="Response\" />
+    <None Remove="Request\Query\" />
+    <None Remove="Request\Command\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application_New_Parking_Bicis\Application_Parking_Bicis.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructura_Parking_Bicis\Infrastructura_Parking_Bicis.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Request\" />
+    <Folder Include="Handler\" />
+    <Folder Include="Response\" />
+    <Folder Include="Request\Query\" />
+    <Folder Include="Request\Command\" />
   </ItemGroup>
 </Project>

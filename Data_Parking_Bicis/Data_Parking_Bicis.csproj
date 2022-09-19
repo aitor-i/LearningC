@@ -10,25 +10,19 @@
     <None Remove="Microsoft.EntityFrameworkCore.Tools" />
     <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
     <None Remove="Microsoft.EntityFrameworkCore" />
-    <None Remove="Data\" />
-    <None Remove="RegisterDI\" />
-    <None Remove="Repository\" />
-    <None Remove="uow\" />
     <None Remove="UOW\" />
+    <None Remove="Entity\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="RegisterDI\" />
-    <Folder Include="Repository\" />
-    <Folder Include="uow\" />
-    <Folder Include="UOW\" />
+    <Folder Include="..\Application_New_Parking_Bicis\UOW\" />
+    <Folder Include="Entity\" />
   </ItemGroup>
 </Project>

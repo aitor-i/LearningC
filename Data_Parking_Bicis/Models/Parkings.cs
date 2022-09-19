@@ -1,5 +1,5 @@
 ﻿using System;
-using Data_Parking_Bicis.Models;
+using Data_Parking_Bicis.Entity;
 
 namespace Data_Parking_Bicis.Model
 {

@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Interfaces\" />
     <None Remove="Profiles\" />
     <None Remove="RegisterDI\" />
     <None Remove="Servicios\" />
@@ -21,9 +20,10 @@
     <None Remove="FluentValidation.DependencyInjectionExtensions" />
     <None Remove="Message\" />
     <None Remove="Repository\" />
+    <None Remove="Servicios\Interfaces\" />
+    <None Remove="UOW\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Interfaces\" />
     <Folder Include="Profiles\" />
     <Folder Include="RegisterDI\" />
     <Folder Include="Servicios\" />
@@ -31,6 +31,8 @@
     <Folder Include="Validators\" />
     <Folder Include="Message\" />
     <Folder Include="Repository\" />
+    <Folder Include="Servicios\Interfaces\" />
+    <Folder Include="UOW\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />

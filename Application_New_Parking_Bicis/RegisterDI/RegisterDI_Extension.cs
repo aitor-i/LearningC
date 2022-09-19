@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Reflection;
-using Application_Parking_Bicis.Interfaces;
 using Application_Parking_Bicis.Servicios;
-using Data_Parking_Bicis.data;
-using Data_Parking_Bicis.uow;
+using Application_Parking_Bicis.Servicios.Interfaces;
 using FluentValidation;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +19,7 @@ namespace Data_Parking_Bicis.RegisterDI
             service.AddTransient<IHistoryService, HistoryService>();
             service.AddTransient<IParkingService, ParkingService>();
             service.AddTransient<IUserInterface, UserService>();
-            service.AddTransient<IUnitOfWork, UnitOfWork>();
+
 
             return service;
         }

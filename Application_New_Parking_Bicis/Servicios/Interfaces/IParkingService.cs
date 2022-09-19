@@ -5,9 +5,9 @@ using Application_Parking_Bicis.Message;
 using Application_Parking_Bicis.ViewModels;
 using Data_Parking_Bicis.Model;
 
-namespace Application_Parking_Bicis.Interfaces
+namespace Application_Parking_Bicis.Servicios.Interfaces
 {
-	public interface IParkingService
+    public interface IParkingService
 	{
 		Task<ServiceQueryResponse<ParkingViewModel>> GetAllParkings();
 		Task<ServiceQueryResponse<ParkingViewModel>> FindParking(ParkingViewModel parkingToFind);

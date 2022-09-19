@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
- using Application_Parking_Bicis.RegisterDI;
 using Data_Parking_Bicis.RegisterDI;
+using Infrastructura_Parking_Bicis.RegisterDI;
+using MediatR;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 string dato1 = builder.Configuration.GetSection("misDatos")["dato1"];
 
 // Add services to the container.
-builder.Services.AddDataDependency(builder.Configuration);
+builder.Services.AddInfrastructureDependency((builder.Configuration));
 builder.Services.AddApplicationDependency();
 
 builder.Services.AddCors(options =>
@@ -28,6 +29,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+
 
 var app = builder.Build();
 

@@ -1,9 +1,9 @@
 ﻿using System;
-using Data_Parking_Bicis.Repository;
+using Application_Parking_Bicis.Repository;
 
-namespace Data_Parking_Bicis.uow
+namespace Application_Parking_Bicis.UOW
 {
-	public interface IUnitOfWork
+    public interface IUnitOfWork
 	{
         IUserRepository UserRepository { get; }
         IHistoryRepository HistoryRepository { get; }

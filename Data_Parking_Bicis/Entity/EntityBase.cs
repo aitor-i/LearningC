@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Data_Parking_Bicis.Models
+namespace Data_Parking_Bicis.Entity
 {
 	public abstract  class EntityBase
 	{
