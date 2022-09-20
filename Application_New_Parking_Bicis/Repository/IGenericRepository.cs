@@ -9,7 +9,7 @@ namespace Application_Parking_Bicis.Repository
 		Task<IEnumerable<T>> GetValues();
 		Task<int> Insert(T entity);
 		IQueryable<T> GetQuery();
-		Task<T?> Find(T predicate);
+		Task<T?> Find(int id);
 		Task<IEnumerable<T>> Search(Expression<Func<T,bool>> predicate);
 	}
 }

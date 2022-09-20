@@ -10,7 +10,7 @@ namespace Application_Parking_Bicis.Servicios.Interfaces
     public interface IParkingService
 	{
 		Task<ServiceQueryResponse<ParkingViewModel>> GetAllParkings();
-		Task<ServiceQueryResponse<ParkingViewModel>> FindParking(ParkingViewModel parkingToFind);
+		Task<ServiceQueryResponse<ParkingViewModel>> FindParking(int id);
 
     }
 }

@@ -23,7 +23,7 @@ export const useLogin = () => {
     setFetchingStatus("loading");
     try {
       const response = await postLogin({ username, password });
-      setUserIdHandler(response.userId);
+      setUserIdHandler(response);
       setFetchingStatus("success");
     } catch (error) {
       setFetchingStatus("error");

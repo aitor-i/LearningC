@@ -42,13 +42,13 @@ namespace Application_Parking_Bicis.Servicios
             
         }
 
-        public async Task<ServiceQueryResponse<ParkingViewModel>> FindParking(ParkingViewModel parkingToFind)
+        public async Task<ServiceQueryResponse<ParkingViewModel>> FindParking(int id)
         {
             ServiceQueryResponse<ParkingViewModel> response = new ServiceQueryResponse<ParkingViewModel>();
             try
             {
-                var parkingModel = _mapper.Map<Parkings>(parkingToFind);
-                var parkingResult = await _unitOfWork.ParkingRepository.Find(parkingModel);
+             
+                var parkingResult = await _unitOfWork.ParkingRepository.Find(id);
                 var mappedParking = _mapper.Map< ParkingViewModel>(parkingResult);
                 response.Single = mappedParking;
                 response.IsSuccess = true;

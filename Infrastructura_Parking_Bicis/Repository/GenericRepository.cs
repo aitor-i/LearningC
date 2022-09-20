@@ -14,11 +14,11 @@ namespace Infrastructura_Parking_Bicis
             _ctx = ctx;
 		}
 
-        public async Task<T?> Find(T predicate)
+        public async Task<T?> Find(int id)
         {
             
            
-                T? element = await _ctx.Set<T>().FindAsync( predicate.Id);
+                T? element = await _ctx.Set<T>().FindAsync( id);
                 return element;
             
         
