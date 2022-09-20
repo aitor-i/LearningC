@@ -1,10 +1,13 @@
 ﻿using System;
+using API_parking_bicis.Request.Query;
+using Application_Parking_Bicis.Message;
 using Application_Parking_Bicis.Servicios.Interfaces;
 using Application_Parking_Bicis.ViewModels;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Data_Parking_Bicis.Model;
 using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,9 +18,11 @@ namespace API_parking_bicis.Controllers
     public class ParkingController : ControllerBase
     {
         private readonly IParkingService _service;
-        public ParkingController(IParkingService service)
+        private readonly IMediator _mediator;
+        public ParkingController(IParkingService service, IMediator mediator)
         {
             _service = service;
+            _mediator = mediator;
             
         }
         /*
@@ -53,17 +58,17 @@ namespace API_parking_bicis.Controllers
         [HttpGet("AllParkings")]
         public async Task<IActionResult> GetAllParkings()
         {
-            var response = await _service.GetAllParkings();
+            var response = await _mediator.Send<ServiceQueryResponse<ParkingViewModel>>(new GetAllParkingRequest());    
             if (!response.IsSuccess) StatusCode(500);
             return Ok(response.Data ) ;   
         }
 
         [HttpPost("GetParking")]
-        public async Task<IActionResult> GetParking(ParkingViewModel parking)
+        public async Task<IActionResult> GetParking(int id)
         {
-            var response = await _service.FindParking(parking);
+            var response = await _mediator.Send<ServiceQueryResponse<ParkingViewModel>>(new FindParkingRequest(id));
             if (!response.IsSuccess) return StatusCode(500);
-            return Ok(response);
+            return Ok(response.Single);
         }
 
         // Pregunta, puedeo hacer un join y luego filtar por elemento del roin? ejm: Añadir username 
