@@ -1,9 +1,13 @@
 ﻿using System;
+using API_parking_bicis.Handler;
+using API_parking_bicis.Request.Command;
+using Application_Parking_Bicis.Message;
 using Application_Parking_Bicis.Servicios.Interfaces;
 using Application_Parking_Bicis.ViewModels;
 using AutoMapper;
 using Data_Parking_Bicis.Model;
 using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,9 +18,10 @@ namespace API_parking_bicis.Controllers
     public class UsersController: ControllerBase
 	{
         private readonly IUserInterface _service;
-        public UsersController(IUserInterface service)
+        private readonly IMediator _mediator;
+        public UsersController(IUserInterface service, IMediator mediator)
         {
-
+            _mediator = mediator;
             _service = service;
         }
         /*
@@ -37,14 +42,14 @@ namespace API_parking_bicis.Controllers
         [HttpPost("NewUser")]
         public async Task<IActionResult> PostNewUser(UserViewModelNewUser newUser)
         {
-            var response = await _service.RegisterNewUser(newUser);
+            var response = await _mediator.Send<ServiceComandResponse>(new PostNewUserRequest(newUser));
             if (!response.IsSuccess) return StatusCode(500);
             return Ok(response.Response); 
         }
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginViewModel loginData)
         {
-            var response = await _service.Login(loginData);
+            var response = await _mediator.Send(new LoginRequest(loginData));
             if (!response.IsSuccess) return StatusCode(500);
             return Ok(response.Response);
         }
