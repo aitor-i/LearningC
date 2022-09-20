@@ -1,10 +1,9 @@
 import React, { Fragment, useContext } from "react";
 
-import { LoginForm } from "../LoginForm/LoginForm";
 import NewHistoryForm from "../NewHistoryForm";
 import History from "../History";
 import { LoginContext } from "../../store/loging-ctx";
-import RegisterForm from "../RegisterForm";
+import MainLoginPage from "../MainLoginPage";
 
 export const Body = () => {
   const { isLogged } = useContext(LoginContext);
@@ -16,13 +15,7 @@ export const Body = () => {
           <NewHistoryForm />
         </>
       ) : (
-        <div
-          className="login-container"
-          style={{ display: "flex", gap: "1.5rem" }}
-        >
-          <LoginForm />
-          <RegisterForm />
-        </div>
+        <MainLoginPage />
       )}
     </Fragment>
   );
