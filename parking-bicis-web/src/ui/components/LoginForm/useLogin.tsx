@@ -22,11 +22,12 @@ export const useLogin = () => {
   const login = async () => {
     setFetchingStatus("loading");
     try {
-      const response = await postLogin({ username, password });
+      const response: number = await postLogin({ username, password });
       setUserIdHandler(response);
       setFetchingStatus("success");
     } catch (error) {
       setFetchingStatus("error");
+      alert(error);
     }
   };
 
