@@ -42,7 +42,7 @@ namespace API_parking_bicis.Controllers
         [HttpPost("NewUser")]
         public async Task<IActionResult> PostNewUser(UserViewModelNewUser newUser)
         {
-            var response = await _mediator.Send<ServiceComandResponse>(new PostNewUserRequest(newUser));
+            var response = await _mediator.Send(new PostNewUserRequest(newUser));
             if (!response.IsSuccess) return StatusCode(500);
             return Ok(response.Response); 
         }

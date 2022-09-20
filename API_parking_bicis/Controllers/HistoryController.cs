@@ -18,11 +18,10 @@ namespace API_parking_bicis.Controllers
     [Route("[controller]")]
     public class HistoryController : ControllerBase
     {
-        private readonly IHistoryService _service;
         private readonly IMediator _mediator;
         public HistoryController(IHistoryService service, IMediator mediator)
         {
-            _service = service;
+            
             _mediator = mediator;
         }
         

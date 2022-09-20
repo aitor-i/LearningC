@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Application_Parking_Bicis.Message;
+﻿using Application_Parking_Bicis.Message;
 using Application_Parking_Bicis.Servicios.Interfaces;
 using Application_Parking_Bicis.UOW;
 using Application_Parking_Bicis.ViewModels;
