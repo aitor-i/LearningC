@@ -1,5 +1,6 @@
 import Spinner from "../Spinner";
 import { useRegisterUser } from "./useRegisterUser";
+import "./register-form.css";
 
 export const RegisterForm = () => {
   const {
@@ -12,7 +13,7 @@ export const RegisterForm = () => {
   } = useRegisterUser();
 
   return (
-    <form ref={registerRef}>
+    <form className="register-form" ref={registerRef}>
       <h2>Register</h2>
       <h3>Name</h3>
       <input

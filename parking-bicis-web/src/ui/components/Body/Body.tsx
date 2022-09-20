@@ -16,10 +16,13 @@ export const Body = () => {
           <NewHistoryForm />
         </>
       ) : (
-        <>
+        <div
+          className="login-container"
+          style={{ display: "flex", gap: "1.5rem" }}
+        >
           <LoginForm />
           <RegisterForm />
-        </>
+        </div>
       )}
     </Fragment>
   );
