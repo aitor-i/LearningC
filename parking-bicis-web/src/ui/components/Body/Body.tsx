@@ -4,6 +4,7 @@ import { LoginForm } from "../LoginForm/LoginForm";
 import NewHistoryForm from "../NewHistoryForm";
 import History from "../History";
 import { LoginContext } from "../../store/loging-ctx";
+import RegisterForm from "../RegisterForm";
 
 export const Body = () => {
   const { isLogged } = useContext(LoginContext);
@@ -15,7 +16,10 @@ export const Body = () => {
           <NewHistoryForm />
         </>
       ) : (
-        <LoginForm />
+        <>
+          <LoginForm />
+          <RegisterForm />
+        </>
       )}
     </Fragment>
   );
