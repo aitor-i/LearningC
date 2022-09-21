@@ -1,4 +1,5 @@
-﻿using Application_Parking_Bicis.Message;
+﻿using System.Collections.Generic;
+using Application_Parking_Bicis.Message;
 using Application_Parking_Bicis.Servicios.Interfaces;
 using Application_Parking_Bicis.UOW;
 using Application_Parking_Bicis.ViewModels;
@@ -46,7 +47,7 @@ namespace Application_Parking_Bicis.Servicios
             {
                // Regex expresion = new Regex($"/{pattern}/i");
                 var filteredHistoriesCollection = await _unitOfWork.HistoryRepository.GetQuery()
-                                                                                 .Where(history => history.User.Username.Contains(pattern))
+                                                                                 .Where(history => history.User.Username.Contains(pattern) || history.Parking.ParkinName.Contains(pattern))
                                                                                  .ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider)
                                                                                  .ToListAsync();
                 var patternMAtchingHistoriesCollerction = await _unitOfWork.HistoryRepository.GetQuery()
@@ -63,6 +64,7 @@ namespace Application_Parking_Bicis.Servicios
                                                                                     .ToListAsync();
                 */
                 var searchedHistoryCollection = await _unitOfWork.HistoryRepository.Search(history => history.User.Username.Contains(pattern) || history.Parking.ParkinName.Contains(pattern));
+                var mappedSearchedHistoryCollection = _mapper.Map<IEnumerable<HistoryViewModel>>(searchedHistoryCollection);
 
                 response.IsSuccess = true;
                 response.Data = filteredHistoriesCollection;
