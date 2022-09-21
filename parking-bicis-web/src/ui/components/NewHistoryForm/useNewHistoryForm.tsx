@@ -34,8 +34,6 @@ export const useNewHistoryForm = () => {
     }
   };
 
-  console.log("userID", userID);
-
   useEffect(() => {
     fetchParkings();
   }, []);

@@ -11,12 +11,16 @@ export const MainLoginPage = () => {
       {isLoginMode ? (
         <>
           <LoginForm />
-          <p onClick={setRegisterHandler}>Register</p>
+          <p className="change-form" onClick={setRegisterHandler}>
+            Register
+          </p>
         </>
       ) : (
         <>
           <RegisterForm />
-          <p onClick={setLoginModeHandler}>Login</p>
+          <p className="change-form" onClick={setLoginModeHandler}>
+            Login
+          </p>
         </>
       )}
     </div>
