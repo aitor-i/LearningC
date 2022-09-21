@@ -3,13 +3,24 @@ import Spinner from "../Spinner";
 import { useGetHistory } from "./useGetHistory";
 
 import "./history.css";
+import SearchComponent from "../SearchCompnent";
 
 export const History = () => {
-  const { history, fetchingStatus, refreshHandler } = useGetHistory();
+  const {
+    history,
+    fetchingStatus,
+    refreshHandler,
+    searchActionHandler,
+    searchParamHandler,
+  } = useGetHistory();
 
   return (
     <div>
       <h2>Parking usage history</h2>
+      <SearchComponent
+        searchActionHandler={searchActionHandler}
+        searchParamHandler={searchParamHandler}
+      />
       <div className="histories-container">
         {fetchingStatus === "loading" ? (
           <Spinner />
