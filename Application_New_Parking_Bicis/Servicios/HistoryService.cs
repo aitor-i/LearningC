@@ -46,6 +46,7 @@ namespace Application_Parking_Bicis.Servicios
             try
             {
                // Regex expresion = new Regex($"/{pattern}/i");
+               /*
                 var filteredHistoriesCollection = await _unitOfWork.HistoryRepository.GetQuery()
                                                                                  .Where(history => history.User.Username.Contains(pattern) || history.Parking.ParkinName.Contains(pattern))
                                                                                  .ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider)
@@ -54,20 +55,27 @@ namespace Application_Parking_Bicis.Servicios
                                                                                  .Where(history => history.Parking.ParkinName.Contains(pattern))
                                                                                  .ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider)
                                                                                  .ToListAsync();
-
+               
                 // filteredHistoriesCollection.AddRange(patternMAtchingHistoriesCollerction);
                 filteredHistoriesCollection.Union(patternMAtchingHistoriesCollerction);
+               */
                 /*
                 var searchedHistoryCollection = await _unitOfWork.HistoryRepository.GetQuery()
                                                                                     .Where(history => history.User.Username.Contains(pattern) || history.Parking.ParkinName.Contains(pattern))
                                                                                     .ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider)
                                                                                     .ToListAsync();
                 */
-                var searchedHistoryCollection = await _unitOfWork.HistoryRepository.Search(history => history.User.Username.Contains(pattern) || history.Parking.ParkinName.Contains(pattern));
-                var mappedSearchedHistoryCollection = _mapper.Map<IEnumerable<HistoryViewModel>>(searchedHistoryCollection);
+               
+                var searchedHistoryCollection = await _unitOfWork.HistoryRepository.GetQuery(history => history.User.Username.Contains(pattern) || history.Parking.ParkinName.Contains(pattern))
+                                                                                   .ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider)
+                                                                                   .OrderBy(x=> x.Username)
+                                                                                   .ToListAsync()
+                                                                                   ;
+
+               // var mappedSearchedHistoryCollection = _mapper.Map<IEnumerable<HistoryViewModel>>(searchedHistoryCollection);
 
                 response.IsSuccess = true;
-                response.Data = filteredHistoriesCollection;
+                response.Data = searchedHistoryCollection;
 
             }
             catch (Exception ex)

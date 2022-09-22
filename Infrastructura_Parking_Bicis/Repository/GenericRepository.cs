@@ -29,6 +29,11 @@ namespace Infrastructura_Parking_Bicis
             return _ctx.Set<T>().AsNoTracking();
         }
 
+        public IQueryable<T> GetQuery(Expression<Func<T, bool>> predicate)
+        {
+            return _ctx.Set<T>().AsNoTracking().Where(predicate);
+        }
+
         public async Task<IEnumerable<T>> GetValues()
         {
 

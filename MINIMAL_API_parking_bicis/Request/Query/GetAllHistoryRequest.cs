@@ -5,7 +5,7 @@ using MediatR;
 
 namespace API_parking_bicis.Request.Query
 {
-    public class GetAllHistoryRequest: IRequest<ServiceQueryResponse<HistoryViewModel>>
+	public class GetAllHistoryRequest: IRequest<ServiceQueryResponse<HistoryViewModel>>
 	{
 		public GetAllHistoryRequest()
 		{
