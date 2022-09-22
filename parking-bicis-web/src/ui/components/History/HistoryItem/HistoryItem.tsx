@@ -9,14 +9,14 @@ interface Props {
   isHighlight: boolean;
 }
 
-export const HistoryItem = ({
+export const HistoryItem = React.memo(function HistoryItem({
   id,
   parkingName,
   startDate,
   stopDate,
   username,
   isHighlight,
-}: Props) => {
+}: Props) {
   return (
     <div className={`history-element ${isHighlight && "highlight"} `} key={id}>
       <span>{id}</span>
@@ -26,4 +26,4 @@ export const HistoryItem = ({
       <span>{stopDate}</span>
     </div>
   );
-};
+});

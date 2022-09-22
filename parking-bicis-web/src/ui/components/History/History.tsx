@@ -5,6 +5,7 @@ import { useGetHistory } from "./useGetHistory";
 import "./history.css";
 import SearchComponent from "../SearchCompnent";
 import HistoryItem from "./HistoryItem";
+import { memo } from "react";
 
 export const History = () => {
   const {
@@ -14,7 +15,6 @@ export const History = () => {
     searchActionHandler,
     searchParamHandler,
   } = useGetHistory();
-
   return (
     <div>
       <h2>Parking usage history</h2>
