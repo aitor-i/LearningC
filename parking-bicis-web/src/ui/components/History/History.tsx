@@ -12,15 +12,15 @@ export const History = () => {
     history,
     fetchingStatus,
     refreshHandler,
-    searchActionHandler,
-    searchParamHandler,
+    setFetchingStatus,
+    setHistory,
   } = useGetHistory();
   return (
     <div>
       <h2>Parking usage history</h2>
       <SearchComponent
-        searchActionHandler={searchActionHandler}
-        searchParamHandler={searchParamHandler}
+        setFetchingStatus={setFetchingStatus}
+        setHistory={setHistory}
       />
       <div className="histories-container">
         {fetchingStatus === "loading" ? (
