@@ -3,10 +3,11 @@ using API_parking_bicis.Request.Command;
 using Application_Parking_Bicis.Message;
 using Application_Parking_Bicis.Servicios.Interfaces;
 using MediatR;
+using MINIMAL_API_parking_bicis.Request.Query;
 
-namespace API_parking_bicis.Handler
+namespace MINIMAL_API_parking_bicis.Handler
 {
-	public class PostNewUserRequestHandler:IRequestHandler<PostNewUserRequest, ServiceComandResponse>
+    public class PostNewUserRequestHandler:IRequestHandler<PostNewUserRequest, ServiceComandResponse>
 	{
         private readonly IUserInterface _service;
 		public PostNewUserRequestHandler(IUserInterface service)

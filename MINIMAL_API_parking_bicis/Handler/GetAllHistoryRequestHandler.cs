@@ -1,13 +1,13 @@
 ﻿using System;
-using API_parking_bicis.Request.Query;
 using Application_Parking_Bicis.Message;
 using Application_Parking_Bicis.Servicios.Interfaces;
 using Application_Parking_Bicis.ViewModels;
 using MediatR;
+using MINIMAL_API_parking_bicis.Request.Query;
 
-namespace API_parking_bicis.Handler
+namespace MINIMAL_API_parking_bicis.Handler
 {
-	public class GetAllHistoryRequestHandler: IRequestHandler<GetAllHistoryRequest, ServiceQueryResponse<HistoryViewModel>>
+    public class GetAllHistoryRequestHandler: IRequestHandler<GetAllHistoryRequest, ServiceQueryResponse<HistoryViewModel>>
 
 	{
         private readonly IHistoryService _service;

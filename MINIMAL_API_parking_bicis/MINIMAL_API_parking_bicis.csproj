@@ -23,6 +23,8 @@
     <PackageReference Include="FluentValidation" Version="11.2.2" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.2.2" />
+    <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +37,10 @@
     <None Remove="FluentValidation" />
     <None Remove="FluentValidation.AspNetCore" />
     <None Remove="FluentValidation.DependencyInjectionExtensions" />
+    <None Remove="MediatR" />
+    <None Remove="MediatR.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="Request\" />
+    <None Remove="Handler\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application_New_Parking_Bicis\Application_Parking_Bicis.csproj">
@@ -43,5 +49,9 @@
     <ProjectReference Include="..\Infrastructura_Parking_Bicis\Infrastructura_Parking_Bicis.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Request\" />
+    <Folder Include="Handler\" />
   </ItemGroup>
 </Project>

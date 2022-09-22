@@ -3,10 +3,11 @@ using API_parking_bicis.Request.Command;
 using Application_Parking_Bicis.Message;
 using Application_Parking_Bicis.Servicios.Interfaces;
 using MediatR;
+using MINIMAL_API_parking_bicis.Request.Query;
 
-namespace API_parking_bicis.Handler
+namespace MINIMAL_API_parking_bicis.Handler
 {
-	public class NewParkingUsageRequestHandler:IRequestHandler<RegisterNewParkingUsageRequest, ServiceComandResponse>
+    public class NewParkingUsageRequestHandler:IRequestHandler<RegisterNewParkingUsageRequest, ServiceComandResponse>
 	{
         private readonly IHistoryService _service;
         public NewParkingUsageRequestHandler(IHistoryService service)

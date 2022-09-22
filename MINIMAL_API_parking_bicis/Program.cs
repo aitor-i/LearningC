@@ -11,6 +11,10 @@ using AutoMapper.QueryableExtensions;
 using Application_Parking_Bicis.ViewModels;
 using Data_Parking_Bicis.Model;
 using FluentValidation;
+using Application_Parking_Bicis.Message;
+using MediatR;
+using MINIMAL_API_parking_bicis.Request.Query;
+using System.Linq.Expressions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +27,7 @@ builder.Services.AddSwaggerGen();
 // Add services to the container.
 builder.Services.AddInfrastructureDependency(builder.Configuration);
 builder.Services.AddApplicationDependency();
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
 
 var app = builder.Build();
@@ -59,67 +64,106 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast");
 
 // Parking bicis
-app.MapGet("/history/all-history", async (IHistoryService _history_service) => {
+app.MapGet("/history/all-history", async  (IMediator _mediator) => {
 
-    var allHistoriesCollection = await _history_service.GetAllHistory();
-    return allHistoriesCollection;
+    var response = await _mediator.Send<ServiceQueryResponse<HistoryViewModel>>(new GetAllHistoryRequest());
+    if (!response.IsSuccess) return null ;
+    return response.Data;
 });
 
-app.MapGet("history/all-history-slim", async (DataContext _ctx, IMapper _mapper) =>
-{
-    var allHistoriesCollection = await _ctx.Histories.ProjectTo<HistorySlimViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+//app.MapGet("history/all-history-slim", async (DataContext _ctx, IMapper _mapper) =>
+//{
+//    var allHistoriesCollection = await _ctx.Histories.ProjectTo<HistorySlimViewModel>(_mapper.ConfigurationProvider).ToListAsync();
 
     
 
-    return allHistoriesCollection;
-});
+//    return allHistoriesCollection;
+//});
 
-app.MapGet("history/by-parking-name", async (DataContext _ctx, IMapper _mapper, [FromQuery] string parkingName) =>
-{
-    var parkingHistoryCollection = await _ctx.Histories
-                                                 .Where(history => history.Parking.ParkinName.ToLower() == parkingName.ToLower())
-                                                 .ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider)
-                                                 .ToListAsync();
+//app.MapGet("history/by-parking-name", async (DataContext _ctx, IMapper _mapper, [FromQuery] string parkingName) =>
+//{
+//    var parkingHistoryCollection = await _ctx.Histories
+//                                                 .Where(history => history.Parking.ParkinName.ToLower() == parkingName.ToLower())
+//                                                 .ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider)
+//                                                 .ToListAsync();
 
-    return parkingHistoryCollection;
-});
+//    return parkingHistoryCollection;
+//});
 
-app.MapGet("history/by-username", async (DataContext _ctx, IMapper _mapper, [FromQuery] string username) =>{
+//app.MapGet("history/by-username", async (DataContext _ctx, IMapper _mapper, [FromQuery] string username) =>{
 
-    Users user = await _ctx.Users.SingleAsync(user => user.Username == username);
-    IEnumerable<History> userHistoryCollection = await _ctx.Histories.Where(history => history.UserId == user.Id).Include(history => history.Parking).ToListAsync();
+//    Users user = await _ctx.Users.SingleAsync(user => user.Username == username);
+//    IEnumerable<History> userHistoryCollection = await _ctx.Histories.Where(history => history.UserId == user.Id).Include(history => history.Parking).ToListAsync();
       
 
-    return _mapper.Map<IEnumerable<History>, IEnumerable<HistoryViewModel>>(userHistoryCollection);
+//    return _mapper.Map<IEnumerable<History>, IEnumerable<HistoryViewModel>>(userHistoryCollection);
+//});
+
+//app.MapGet("history/by-user-id", async (DataContext _ctx, IMapper _mapper, [FromQuery] int userId) =>
+//{
+//    IEnumerable<HistoryViewModel> histoyesCollection = await _ctx.Histories.Where(history => history.Id == userId).ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider).ToArrayAsync();
+//    return histoyesCollection;
+//});
+
+app.MapPost("History/NewParkingUsage", async Task<IResult> (IMediator _mediator, HistoryViewModel usageForm) =>
+{
+    var response = await _mediator.Send<ServiceComandResponse>(new RegisterNewParkingUsageRequest(usageForm));
+    if (!response.IsSuccess) return Results.Problem();
+    return Results.Ok(response.Response);
+    //try
+    //{
+    //    var result = _validator.Validate(usageForm);
+    //    if (!result.IsValid)
+    //    {
+    //        return Results.BadRequest(result.Errors);
+
+    //    }
+    //    await _ctx.Histories.AddAsync(usageForm);
+    //    await _ctx.SaveChangesAsync();
+
+    //    return Results.Ok( usageForm.Id);
+
+    //}
+    //catch (Exception ex)
+    //{
+    //    return  Results.Problem(statusCode:500, detail:ex.Message);
+    //}
+
 });
 
-app.MapGet("history/by-user-id", async (DataContext _ctx, IMapper _mapper, [FromQuery] int userId) =>
+app.MapGet("History/search", async Task<IResult> (IMediator _mediator, string expression) =>
 {
-    IEnumerable<HistoryViewModel> histoyesCollection = await _ctx.Histories.Where(history => history.Id == userId).ProjectTo<HistoryViewModel>(_mapper.ConfigurationProvider).ToArrayAsync();
-    return histoyesCollection;
+    var response = await _mediator.Send<ServiceQueryResponse<HistoryViewModel>>(new SearchRequest(expression));
+    if (!response.IsSuccess) return Results.StatusCode(500);
+    return Results.Ok(response.Data);
 });
 
-app.MapPost("history/new-parking-usage", async (DataContext _ctx, History usageForm, IValidator<History> _validator) =>
+app.MapGet("History/AllHistory", async Task<IResult> (IMediator _mediator) =>
 {
-    try
-    {
-        var result = _validator.Validate(usageForm);
-        if (!result.IsValid)
-        {
-            return Results.BadRequest(result.Errors);
+    var response = await _mediator.Send<ServiceQueryResponse<HistoryViewModel>>(new GetAllHistoryRequest());
+    if (!response.IsSuccess) return Results.StatusCode(500);
+    return Results.Ok(response.Data);
+});
 
-        }
-        await _ctx.Histories.AddAsync(usageForm);
-        await _ctx.SaveChangesAsync();
+app.MapPost("User/NewUser", async Task<IResult>(IMediator _mediator, UserViewModelNewUser newUser) => {
 
-        return Results.Ok( usageForm.Id);
+    var response = await _mediator.Send(new PostNewUserRequest(newUser));
+    if (!response.IsSuccess) return Results.StatusCode(500);
+    return Results.Ok(response.Response);
+});
 
-    }
-    catch (Exception ex)
-    {
-        return  Results.Problem(statusCode:500, detail:ex.Message);
-    }
+app.MapPost("User/Login", async Task<IResult> (IMediator _mediator, LoginViewModel loginData) =>
+{
+    var response = await _mediator.Send(new LoginRequest(loginData));
+    if (!response.IsSuccess) return Results.StatusCode(500);
+    return Results.Ok(response.Response);
+});
 
+app.MapGet("Parkings/AllParkings", async Task<IResult> (IMediator _mediator) =>
+{
+    var response = await _mediator.Send<ServiceQueryResponse<ParkingViewModel>>(new GetAllParkingRequest());
+    if (!response.IsSuccess) Results.StatusCode(500);
+    return Results.Ok(response.Data);
 });
 
 // API run

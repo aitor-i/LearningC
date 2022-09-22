@@ -12,7 +12,7 @@
     "MINIMAL_API_parking_bicis": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:25943",
+      "applicationUrl": "http://localhost:8460",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
