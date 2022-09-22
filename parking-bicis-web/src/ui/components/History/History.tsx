@@ -4,6 +4,7 @@ import { useGetHistory } from "./useGetHistory";
 
 import "./history.css";
 import SearchComponent from "../SearchCompnent";
+import HistoryItem from "./HistoryItem";
 
 export const History = () => {
   const {
@@ -34,18 +35,22 @@ export const History = () => {
               <span>StartDate</span>
               <span>StopDate</span>
             </p>
-            {history.map((register, index) => (
-              <p
-                className={`history-element ${index % 2 === 1 && "highlight"} `}
-                key={register.id}
-              >
-                <span>{register.id}</span>
-                <span>{register.parkingName}</span>
-                <span>{register.username}</span>
-                <span>{register.startDate}</span>
-                <span>{register.stopDate}</span>
-              </p>
-            ))}
+            {history.map((register, index) => {
+              const { id, parkingName, startDate, stopDate, username } =
+                register;
+              const isHighlight = index % 2 === 1;
+              return (
+                <HistoryItem
+                  id={id}
+                  isHighlight={isHighlight}
+                  startDate={startDate}
+                  stopDate={stopDate}
+                  parkingName={parkingName}
+                  username={username}
+                  key={id}
+                />
+              );
+            })}
           </>
         )}
       </div>
