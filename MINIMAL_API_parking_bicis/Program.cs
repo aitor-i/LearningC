@@ -142,7 +142,7 @@ app.MapPost("History/NewParkingUsage", async Task<IResult> (IMediator _mediator,
 
 });
 
-app.MapGet("History/search", async Task<IResult> (IMediator _mediator, string expression) =>
+app.MapPost("History/search", async Task<IResult> (IMediator _mediator, string expression) =>
 {
     var response = await _mediator.Send<ServiceQueryResponse<HistoryViewModel>>(new SearchRequest(expression));
     if (!response.IsSuccess) return Results.StatusCode(500);

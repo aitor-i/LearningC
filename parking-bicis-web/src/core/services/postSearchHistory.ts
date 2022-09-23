@@ -1,6 +1,6 @@
 export const postSearchHistory = async (searchParam: string) => {
   const response = fetch(
-    `${process.env.REACT_APP_API_URL}/History/search?expresion=${searchParam}`,
+    `${process.env.REACT_APP_API_URL}/History/search?expression=${searchParam}`,
     {
       method: "POST",
     }
