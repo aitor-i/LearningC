@@ -29,6 +29,17 @@ builder.Services.AddInfrastructureDependency(builder.Configuration);
 builder.Services.AddApplicationDependency();
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
+//CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "myCors",
+        policy => policy.WithOrigins("http://localhost:3000",
+                                    "http://localhost:3001")
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod()
+                        );
+
+});
 
 var app = builder.Build();
 
@@ -145,21 +156,21 @@ app.MapGet("History/AllHistory", async Task<IResult> (IMediator _mediator) =>
     return Results.Ok(response.Data);
 });
 
-app.MapPost("User/NewUser", async Task<IResult>(IMediator _mediator, UserViewModelNewUser newUser) => {
+app.MapPost("Users/NewUser", async Task<IResult>(IMediator _mediator, UserViewModelNewUser newUser) => {
 
     var response = await _mediator.Send(new PostNewUserRequest(newUser));
     if (!response.IsSuccess) return Results.StatusCode(500);
     return Results.Ok(response.Response);
 });
 
-app.MapPost("User/Login", async Task<IResult> (IMediator _mediator, LoginViewModel loginData) =>
+app.MapPost("Users/Login", async Task<IResult> (IMediator _mediator, LoginViewModel loginData) =>
 {
     var response = await _mediator.Send(new LoginRequest(loginData));
     if (!response.IsSuccess) return Results.StatusCode(500);
     return Results.Ok(response.Response);
 });
 
-app.MapGet("Parkings/AllParkings", async Task<IResult> (IMediator _mediator) =>
+app.MapGet("Parking/AllParkings", async Task<IResult> (IMediator _mediator) =>
 {
     var response = await _mediator.Send<ServiceQueryResponse<ParkingViewModel>>(new GetAllParkingRequest());
     if (!response.IsSuccess) Results.StatusCode(500);
@@ -167,6 +178,7 @@ app.MapGet("Parkings/AllParkings", async Task<IResult> (IMediator _mediator) =>
 });
 
 // API run
+app.UseCors("myCors");
 app.Run();  
 
 record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
