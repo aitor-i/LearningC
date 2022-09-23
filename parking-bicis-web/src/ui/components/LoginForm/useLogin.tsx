@@ -26,6 +26,8 @@ export const useLogin = () => {
       setUserIdHandler(response);
       setFetchingStatus("success");
     } catch (error) {
+      console.log(error);
+
       setFetchingStatus("error");
       alert(error);
     }

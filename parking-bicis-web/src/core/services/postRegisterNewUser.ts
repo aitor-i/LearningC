@@ -1,7 +1,7 @@
 import { RegisterType } from "../domain/type/RegisterType";
 
 export const postRegisterNewUser = async (newUserForm: RegisterType) => {
-  const response = fetch("http://localhost:6168/Users/NewUser", {
+  const response = fetch(`${process.env.REACT_APP_API_URL}/Users/NewUser`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

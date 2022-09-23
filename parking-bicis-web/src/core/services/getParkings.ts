@@ -1,5 +1,5 @@
 export const getParkings = async () => {
   return await (
-    await fetch("http://localhost:6168/Parking/AllParkings")
+    await fetch(`${process.env.REACT_APP_API_URL}/Parking/AllParkings`)
   ).json();
 };
