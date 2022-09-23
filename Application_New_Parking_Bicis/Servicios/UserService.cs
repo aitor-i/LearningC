@@ -4,6 +4,7 @@ using Application_Parking_Bicis.Servicios.Interfaces;
 using Application_Parking_Bicis.UOW;
 using Application_Parking_Bicis.ViewModels;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Data_Parking_Bicis.Model;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -25,16 +26,20 @@ namespace Application_Parking_Bicis.Servicios
            
         }
 
-        public async Task<ServiceComandResponse> Login(LoginViewModel loginData)
+        public async Task<ServiceQueryResponse<LoginResponseViewModel>> Login(LoginViewModel loginData)
         {
-            ServiceComandResponse commandResponse = new ServiceComandResponse() { IsSuccess = false };
+            ServiceQueryResponse<LoginResponseViewModel>  commandResponse = new ServiceQueryResponse<LoginResponseViewModel> { IsSuccess = false };
             try
             {
-                 // var passwordDv = await _ctx.Passwords.Include(pass => pass.User).Where(pass => pass.User.Username == loginData.Username).ToListAsync();
+                // var passwordDv = await _ctx.Passwords.Include(pass => pass.User).Where(pass => pass.User.Username == loginData.Username).ToListAsync();
                 // passwordDv = await _passwordRepository.GetValues().Include(pass => pass.User).Where(pass => pass.User.Username == loginData.Username);
 
-                var passwordDv = await _unitOfWork.PasswordRepository.GetPasswords(loginData.Username);
+                // var passwordDv = await _unitOfWork.PasswordRepository.GetPasswords(loginData.Username);
 
+                var passwordDv = await _unitOfWork.PasswordRepository.GetQuery(pass => pass.User.Username == loginData.Username)
+                                                                     .ProjectTo<LoginResponseViewModel>(_mapper.ConfigurationProvider)
+                                                                     .ToListAsync();
+                                                                     
                 if (passwordDv.Count == 0) throw new InvalidDataException();
 
 
@@ -43,10 +48,12 @@ namespace Application_Parking_Bicis.Servicios
 
                     LoginResponseViewModel response = new LoginResponseViewModel();
                     response.IsLogged = true;
-                    response.UserId = passwordDv[0].UsersId;
+                    response.UsersId = passwordDv[0].UsersId;
+                    response.Username = passwordDv[0].Username;
+                    response.UserType = passwordDv[0].UserType;
 
                     commandResponse.IsSuccess = true;
-                    commandResponse.Response = response.UserId;
+                    commandResponse.Single = response;
                     
                         
                 }

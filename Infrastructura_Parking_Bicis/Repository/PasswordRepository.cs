@@ -15,7 +15,8 @@ namespace Data_Parking_Bicis.Repository
 
 		public async Task<List<Passwords>> GetPasswords(string username)
 		{
-            return await _ctx.Set<Passwords>().Where(pass => pass.User.Username == username).ToListAsync();
+			var passList = await _ctx.Set<Passwords>().Where(pass => pass.User.Username == username).Include(pas => pas.User).ToListAsync();
+			return passList;
 
            
         }

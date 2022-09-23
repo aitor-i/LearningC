@@ -5,7 +5,7 @@ using MediatR;
 
 namespace MINIMAL_API_parking_bicis.Request.Query
 {
-    public class LoginRequest:IRequest<ServiceComandResponse>
+    public class LoginRequest:IRequest<ServiceQueryResponse<LoginResponseViewModel>>
 	{
 		public LoginViewModel LoginData { set; get; } 
 		public LoginRequest(LoginViewModel loginData)

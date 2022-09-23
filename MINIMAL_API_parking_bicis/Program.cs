@@ -167,7 +167,7 @@ app.MapPost("Users/Login", async Task<IResult> (IMediator _mediator, LoginViewMo
 {
     var response = await _mediator.Send(new LoginRequest(loginData));
     if (!response.IsSuccess) return Results.StatusCode(500);
-    return Results.Ok(response.Response);
+    return Results.Ok(response.Single);
 });
 
 app.MapGet("Parking/AllParkings", async Task<IResult> (IMediator _mediator) =>
