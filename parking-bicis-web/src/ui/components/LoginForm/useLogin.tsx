@@ -22,8 +22,8 @@ export const useLogin = () => {
   const login = async () => {
     setFetchingStatus("loading");
     try {
-      const response: number = await postLogin({ username, password });
-      setUserIdHandler(response);
+      const response = await postLogin({ username, password });
+      setUserIdHandler(response.usersId);
       setFetchingStatus("success");
     } catch (error) {
       console.log(error);

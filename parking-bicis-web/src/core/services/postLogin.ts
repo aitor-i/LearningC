@@ -1,6 +1,9 @@
 import { LoginForm } from "../domain/type/LoginForm";
+import { LoginResponse } from "../domain/type/LoginResponse";
 
-export const postLogin = async (loginForm: LoginForm) => {
+export const postLogin: (
+  loginForm: LoginForm
+) => Promise<LoginResponse> = async (loginForm) => {
   const response = fetch(`${process.env.REACT_APP_API_URL}/Users/login`, {
     method: "POST",
     headers: {
