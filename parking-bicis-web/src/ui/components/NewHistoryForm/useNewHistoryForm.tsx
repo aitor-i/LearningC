@@ -20,7 +20,7 @@ export const useNewHistoryForm = () => {
     "idle" | "loading" | "success" | "error"
   >("idle");
 
-  const { isLogged, userID } = useContext(LoginContext);
+  const { isLogged, user } = useContext(LoginContext);
 
   const registerParkingForm = useRef<HTMLFormElement>(null);
 
@@ -54,7 +54,7 @@ export const useNewHistoryForm = () => {
         parkingId,
         startDate: enterTime,
         stopDate: exitTime,
-        userId: userID,
+        userId: user.usersId,
       };
       const response = await postNewParkingUsage(newRegisterForm);
       alert(`Your registration id is ${response}`);

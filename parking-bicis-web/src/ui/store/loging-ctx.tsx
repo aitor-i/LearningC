@@ -1,20 +1,29 @@
 import React, { useState } from "react";
+import { LoginResponse } from "../../core/domain/type/LoginResponse";
 
 interface Props {
   children: React.ReactNode;
 }
 
+const defaultLoginData: LoginResponse = {
+  isLogged: false,
+  usersId: NaN,
+  userType: NaN,
+  username: "",
+  password: null,
+};
+
 export const LoginContext = React.createContext({
   isLogged: false,
   loginHandler: () => {},
   logOutHandler: () => {},
-  setUserIdHandler: (id: number) => {},
-  userID: NaN,
+  setUserHandler: (user: LoginResponse) => {},
+  user: defaultLoginData,
 });
 
 export const LoginContextProvider = ({ children }: Props) => {
   const [isLogged, setIsLogged] = useState(false);
-  const [userId, setUserId] = useState<number>(NaN);
+  const [user, setUser] = useState<LoginResponse>(defaultLoginData);
 
   const loginHandler = () => {
     setIsLogged(true);
@@ -24,9 +33,9 @@ export const LoginContextProvider = ({ children }: Props) => {
     setIsLogged(false);
   };
 
-  const setUSerIdHandler = (id: number) => {
-    setUserId(id);
-    if (id) {
+  const setUserHandler = (user: LoginResponse) => {
+    setUser(user);
+    if (user) {
       loginHandler();
     }
   };
@@ -37,8 +46,8 @@ export const LoginContextProvider = ({ children }: Props) => {
         isLogged,
         logOutHandler,
         loginHandler,
-        setUserIdHandler: setUSerIdHandler,
-        userID: userId,
+        setUserHandler,
+        user: user,
       }}
     >
       {children}

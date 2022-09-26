@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { LoginContext } from "../../store/loging-ctx";
 
 export const Header = () => {
-  const { isLogged, logOutHandler, userID } = useContext(LoginContext);
+  const { isLogged, logOutHandler, user } = useContext(LoginContext);
   return (
     <div
       style={{
@@ -14,7 +14,7 @@ export const Header = () => {
       <h1>Parking</h1>
       {isLogged ? (
         <>
-          <p style={{ color: "white" }}>Your id is: {userID}</p>
+          <p style={{ color: "white" }}>Your id is: {user.usersId}</p>
           <button style={{ padding: "1rem" }} onClick={logOutHandler}>
             Log out
           </button>
