@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Application_Parking_Bicis.ViewModels
 {
-    public class ParkingViewModel
+    public class	ParkingViewModel
 	{
 
         public int Id { get; set; }

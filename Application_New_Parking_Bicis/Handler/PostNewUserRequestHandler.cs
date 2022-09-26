@@ -3,6 +3,7 @@ using Application_Parking_Bicis.Message;
 using Application_Parking_Bicis.Servicios.Interfaces;
 using MediatR;
 using Application_Parking_Bicis.Request.Query;
+using Application_Parking_Bicis.Request.Command;
 
 namespace Application_Parking_Bicis.Handler
 {

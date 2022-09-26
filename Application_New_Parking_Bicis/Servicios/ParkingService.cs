@@ -60,6 +60,24 @@ namespace Application_Parking_Bicis.Servicios
 
             return response; 
         }
+
+        public async Task<ServiceComandResponse> NewParking(NewParkingForm parkingForm)
+        {
+            ServiceComandResponse response = new ServiceComandResponse();
+            try
+            {
+                var parking = _mapper.Map<Parkings>(parkingForm);
+                var res = await _unitOfWork.ParkingRepository.Insert(parking);
+                response.IsSuccess = true;
+                response.Response = res;
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+            }
+
+            return response;
+        }
     }
 }
 

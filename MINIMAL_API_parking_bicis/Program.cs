@@ -16,6 +16,7 @@ using MediatR;
 using Application_Parking_Bicis.Request.Query;
 using Application_Parking_Bicis.Handler;
 using System.Linq.Expressions;
+using Application_Parking_Bicis.Request.Command;
 // using MApplication_Parking_Bicis.Request.Query;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -185,6 +186,13 @@ app.MapGet("Parking/AllParkings", async Task<IResult> (IMediator _mediator) =>
     var response = await _mediator.Send<ServiceQueryResponse<ParkingViewModel>>(new GetAllParkingRequest());
     if (!response.IsSuccess) Results.StatusCode(500);
     return Results.Ok(response.Data);
+});
+
+app.MapPost("Parking/NewPArking", async Task<IResult> (IMediator _mediator, NewParkingForm parkingForm) =>
+{
+    var response = await _mediator.Send(new NewParkingRequest(parkingForm));
+    if (!response.IsSuccess) Results.StatusCode(500);
+    return Results.Ok(response.Response);
 });
 
 // API run
