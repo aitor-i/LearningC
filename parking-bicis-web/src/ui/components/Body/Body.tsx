@@ -1,25 +1,22 @@
 import React, { Fragment, useContext } from "react";
 
-import NewHistoryForm from "../NewHistoryForm";
-import History from "../History";
 import { LoginContext } from "../../store/loging-ctx";
 import MainLoginPage from "../MainLoginPage";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import Spinner from "../Spinner";
+import BikeUserBody from "./BikeUserBody";
 
 export const Body = () => {
-  const { isLogged } = useContext(LoginContext);
+  const { isLogged, user } = useContext(LoginContext);
+  const { userType } = user;
   return (
     <Fragment>
       {isLogged ? (
-        <>
-          <ErrorBoundary>
-            <History />
-          </ErrorBoundary>
-          <ErrorBoundary>
-            <NewHistoryForm />
-          </ErrorBoundary>
-        </>
+        userType === 1 ? (
+          <BikeUserBody />
+        ) : (
+          <></>
+        )
       ) : (
         <ErrorBoundary>
           <React.Suspense fallback={<Spinner />}>
