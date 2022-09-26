@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { postLogin } from "../../../core/services/postLogin";
-import { LoginContext } from "../../store/loging-ctx";
+import { postLogin } from "../../../../core/services/postLogin";
+import { LoginContext } from "../../../store/loging-ctx";
 
 export const useLogin = () => {
   const [username, setUsername] = useState("");

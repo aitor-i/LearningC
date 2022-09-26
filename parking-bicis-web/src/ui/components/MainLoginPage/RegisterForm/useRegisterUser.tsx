@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
-import { RegisterType } from "../../../core/domain/type/RegisterType";
-import { postRegisterNewUser } from "../../../core/services/postRegisterNewUser";
+import { RegisterType } from "../../../../core/domain/type/RegisterType";
+import { postRegisterNewUser } from "../../../../core/services/postRegisterNewUser";
 
 export const useRegisterUser = () => {
   const [name, setName] = useState("");

@@ -1,4 +1,4 @@
-import Spinner from "../Spinner";
+import Spinner from "../../Spinner";
 import { useLogin } from "./useLogin";
 
 import "./login-form.css";

@@ -1,5 +1,5 @@
-import { LoginForm } from "../LoginForm/LoginForm";
-import RegisterForm from "../RegisterForm";
+import { LoginForm } from "./LoginForm/LoginForm";
+import RegisterForm from "./RegisterForm";
 import { useMainLogin } from "./useMainLogin";
 import "./main-login-page.css";
 

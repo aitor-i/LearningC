@@ -1,4 +1,4 @@
-import Spinner from "../Spinner";
+import Spinner from "../../Spinner";
 import { useRegisterUser } from "./useRegisterUser";
 import "./register-form.css";
 
