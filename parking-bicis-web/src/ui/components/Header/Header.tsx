@@ -14,7 +14,10 @@ export const Header = () => {
       <h1>Parking</h1>
       {isLogged ? (
         <>
-          <p style={{ color: "white" }}>Your id is: {user.usersId}</p>
+          <p style={{ color: "white" }}>
+            {user.username} your Id: {user.usersId} your type:{" "}
+            {user.userType === 1 ? "Bike user" : "Parking owner"}
+          </p>
           <button style={{ padding: "1rem" }} onClick={logOutHandler}>
             Log out
           </button>
