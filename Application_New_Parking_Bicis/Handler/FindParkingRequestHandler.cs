@@ -4,9 +4,9 @@ using Application_Parking_Bicis.Servicios.Interfaces;
 using Application_Parking_Bicis.ViewModels;
 using Data_Parking_Bicis.Model;
 using MediatR;
-using MINIMAL_API_parking_bicis.Request.Query;
+using Application_Parking_Bicis.Request.Query;
 
-namespace MINIMAL_API_parking_bicis.Handler
+namespace Application_Parking_Bicis.Handler
 {
 	public class FindParkingRequestHandler:	IRequestHandler<FindParkingRequest, ServiceQueryResponse<ParkingViewModel>>
 	{

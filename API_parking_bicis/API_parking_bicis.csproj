@@ -26,7 +26,6 @@
     <None Remove="MediatR.Extensions.Microsoft.DependencyInjection" />
     <None Remove="Request\" />
     <None Remove="Handler\" />
-    <None Remove="Response\" />
     <None Remove="Request\Query\" />
     <None Remove="Request\Command\" />
   </ItemGroup>
@@ -41,7 +40,6 @@
   <ItemGroup>
     <Folder Include="Request\" />
     <Folder Include="Handler\" />
-    <Folder Include="Response\" />
     <Folder Include="Request\Query\" />
     <Folder Include="Request\Command\" />
   </ItemGroup>

@@ -22,6 +22,10 @@
     <None Remove="Repository\" />
     <None Remove="Servicios\Interfaces\" />
     <None Remove="UOW\" />
+    <None Remove="Handler\" />
+    <None Remove="MediatR.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="MediatR" />
+    <None Remove="Request\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Profiles\" />
@@ -33,6 +37,8 @@
     <Folder Include="Repository\" />
     <Folder Include="Servicios\Interfaces\" />
     <Folder Include="UOW\" />
+    <Folder Include="Handler\" />
+    <Folder Include="Request\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
@@ -40,6 +46,8 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
     <PackageReference Include="FluentValidation" Version="11.2.2" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.2.2" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="MediatR" Version="10.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data_Parking_Bicis\Data_Parking_Bicis.csproj" />

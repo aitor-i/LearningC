@@ -3,7 +3,7 @@ using Application_Parking_Bicis.Message;
 using Application_Parking_Bicis.ViewModels;
 using MediatR;
 
-namespace API_parking_bicis.Request.Command
+namespace Application_Parking_Bicis.Request.Command
 {
 	public class FindParkingRequest: IRequest<ServiceComandResponse>
 	{

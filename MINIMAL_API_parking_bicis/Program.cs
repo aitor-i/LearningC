@@ -13,8 +13,10 @@ using Data_Parking_Bicis.Model;
 using FluentValidation;
 using Application_Parking_Bicis.Message;
 using MediatR;
-using MINIMAL_API_parking_bicis.Request.Query;
+using Application_Parking_Bicis.Request.Query;
+using Application_Parking_Bicis.Handler;
 using System.Linq.Expressions;
+// using MApplication_Parking_Bicis.Request.Query;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +29,7 @@ builder.Services.AddSwaggerGen();
 // Add services to the container.
 builder.Services.AddInfrastructureDependency(builder.Configuration);
 builder.Services.AddApplicationDependency();
-builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+//builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
 //CORS
 builder.Services.AddCors(options =>
@@ -165,9 +167,17 @@ app.MapPost("Users/NewUser", async Task<IResult>(IMediator _mediator, UserViewMo
 
 app.MapPost("Users/Login", async Task<IResult> (IMediator _mediator, LoginViewModel loginData) =>
 {
+    try
+    {
     var response = await _mediator.Send(new LoginRequest(loginData));
     if (!response.IsSuccess) return Results.StatusCode(500);
     return Results.Ok(response.Single);
+
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem(ex.ToString());
+    }
 });
 
 app.MapGet("Parking/AllParkings", async Task<IResult> (IMediator _mediator) =>

@@ -4,7 +4,7 @@ using Application_Parking_Bicis.ViewModels;
 using Data_Parking_Bicis.Model;
 using MediatR;
 
-namespace MINIMAL_API_parking_bicis.Request.Query
+namespace Application_Parking_Bicis.Request.Query
 {
     public class GetAllParkingRequest:IRequest<ServiceQueryResponse<ParkingViewModel>>
 	{
