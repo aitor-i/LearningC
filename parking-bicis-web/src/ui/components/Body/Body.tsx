@@ -5,6 +5,7 @@ import MainLoginPage from "../MainLoginPage";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import Spinner from "../Spinner";
 import BikeUserBody from "./BikeUserBody";
+import ParkingOwnerBody from "./ParkingOwnerBody";
 
 export const Body = () => {
   const { isLogged, user } = useContext(LoginContext);
@@ -15,7 +16,7 @@ export const Body = () => {
         userType === 1 ? (
           <BikeUserBody />
         ) : (
-          <></>
+          <ParkingOwnerBody />
         )
       ) : (
         <ErrorBoundary>
