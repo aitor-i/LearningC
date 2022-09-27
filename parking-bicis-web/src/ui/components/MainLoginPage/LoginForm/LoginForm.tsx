@@ -19,7 +19,7 @@ export const LoginForm = () => {
       />
       <h3>Password</h3>
       <input
-        type="password"
+        type="text"
         name="'password"
         onChange={passwordHandler}
         aria-label="password"
