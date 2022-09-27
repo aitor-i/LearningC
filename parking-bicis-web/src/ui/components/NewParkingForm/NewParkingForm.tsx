@@ -1,11 +1,12 @@
 import Spinner from "../Spinner";
 import { useNewParking } from "./useNewParking";
+import "./new-parking-form.css";
 
 export const NewParkingForm = () => {
   const { loadingState, parkingNameHandler, publishHandler } = useNewParking();
 
   return (
-    <form>
+    <form className="parking-form">
       <h3>Parking Name</h3>
       <input type="text" name="parking-name" onChange={parkingNameHandler} />
       {loadingState === "loading" ? (
