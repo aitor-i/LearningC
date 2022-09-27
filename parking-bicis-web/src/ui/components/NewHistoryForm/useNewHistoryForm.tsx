@@ -1,15 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { parkingForm } from "../../../core/domain/type/parkingForm";
+import { Parkings } from "../../../core/domain/type/Parkings";
 import { getParkings } from "../../../core/services/getParkings";
 import { postNewParkingUsage } from "../../../core/services/postNewParkingUsage";
 import { LoginContext } from "../../store/loging-ctx";
-
-interface Parkings {
-  id: number;
-  parkinName: string;
-  useId: number;
-  username: string;
-}
 
 export const useNewHistoryForm = () => {
   const [parkings, setParkings] = useState<Parkings[]>([]);
