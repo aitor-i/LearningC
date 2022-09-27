@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Parkings } from "../../../core/domain/type/Parkings";
-import { getParkings } from "../../../core/services/getParkings";
+import { Parkings } from "../../../../../core/domain/type/Parkings";
+import { getParkings } from "../../../../../core/services/getParkings";
 
 export const useParkin = () => {
   const [parkings, setParkings] = useState<Parkings[]>([]);
+  const [selectedParking, setSelectedParking] = useState<Parkings>();
   const [fetchingStatus, setFetchingStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
@@ -16,10 +17,13 @@ export const useParkin = () => {
       setFetchingStatus("error");
     }
   };
+  const selectParkingHandler = (parking: Parkings) => {
+    setSelectedParking(parking);
+  };
 
   useEffect(() => {
     fetchParkings();
   }, []);
 
-  return { parkings, fetchingStatus };
+  return { parkings, fetchingStatus, selectParkingHandler, selectedParking };
 };

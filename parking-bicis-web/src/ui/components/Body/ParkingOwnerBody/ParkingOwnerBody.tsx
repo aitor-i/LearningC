@@ -1,7 +1,7 @@
 import React from "react";
 import History from "../../History";
 import NewParkingForm from "../../NewParkingForm";
-import { ParkingList } from "../../ParkingList/ParkingList";
+import { ParkingList } from "./ParkingList/ParkingList";
 
 export const ParkingOwnerBody = () => {
   return (
