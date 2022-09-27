@@ -21,5 +21,5 @@ export const useParkin = () => {
     fetchParkings();
   }, []);
 
-  return { parkings, fetchingStatus };
+  return { parkings, fetchingStatus, fetchParkings };
 };

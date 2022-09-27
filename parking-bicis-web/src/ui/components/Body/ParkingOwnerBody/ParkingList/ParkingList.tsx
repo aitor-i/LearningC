@@ -8,11 +8,14 @@ interface Props {
 }
 
 export const ParkingList = ({ selectParkingHandler }: Props) => {
-  const { fetchingStatus, parkings } = useParkin();
+  const { fetchingStatus, parkings, fetchParkings } = useParkin();
 
   return (
     <div className="parkings-list">
-      <h3>Parkings</h3>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <h3>Parkings</h3>
+        <p onClick={fetchParkings}>R</p>
+      </div>
       {fetchingStatus !== "loading" && fetchingStatus === "success" ? (
         parkings.map((parkin) => {
           return (
