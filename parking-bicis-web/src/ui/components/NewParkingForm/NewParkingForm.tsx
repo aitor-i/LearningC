@@ -1,6 +1,3 @@
-import React, { useContext, useState } from "react";
-import { postNewParking } from "../../../core/services/postNewParking";
-import { LoginContext } from "../../store/loging-ctx";
 import Spinner from "../Spinner";
 import { useNewParking } from "./useNewParking";
 

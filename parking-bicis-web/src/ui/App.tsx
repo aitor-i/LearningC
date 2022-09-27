@@ -1,7 +1,5 @@
-import React from "react";
 import { LoginContextProvider } from "./store/loging-ctx";
 
-import NewHistoryForm from "./components/NewHistoryForm";
 import Body from "./components/Body";
 
 import "./App.css";
