@@ -4,6 +4,7 @@ using Application_Parking_Bicis.Servicios.Interfaces;
 using Application_Parking_Bicis.UOW;
 using Application_Parking_Bicis.ViewModels;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Data_Parking_Bicis.Model;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,10 +27,10 @@ namespace Application_Parking_Bicis.Servicios
 
             try
             {
-                var parkingsCollection = await _unitOfWork.ParkingRepository.GetValues();
-                var mappedParkingsCollection = _mapper.Map<IEnumerable<Parkings>, IEnumerable<ParkingViewModel>>(parkingsCollection);
+                var parkingsCollection = await _unitOfWork.ParkingRepository.GetQuery().ProjectTo<ParkingViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+                // var mappedParkingsCollection = _mapper.Map<IEnumerable<Parkings>, IEnumerable<ParkingViewModel>>(parkingsCollection);
                 response.IsSuccess = true;
-                response.Data = mappedParkingsCollection;
+                response.Data = parkingsCollection;
 
             }
             catch (Exception ex)
