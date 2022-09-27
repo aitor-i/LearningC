@@ -10,3 +10,10 @@
   color: rgba(0, 0, 0, 0.8);
   border-bottom: 1px solid rgba(0, 0, 0, 0.8);
 }
+.parkings-list p {
+  cursor: pointer;
+}
+
+.parkings-list p:hover {
+  color: white;
+}

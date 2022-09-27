@@ -1,9 +1,14 @@
+import { Parkings } from "../../../../../core/domain/type/Parkings";
 import Spinner from "../../../Spinner";
-import { useParkin } from "./useParking";
+import { useParkin } from "../useParking";
 import "./parking-list.css";
 
-export const ParkingList = () => {
-  const { fetchingStatus, parkings, selectParkingHandler } = useParkin();
+interface Props {
+  selectParkingHandler: (parking: Parkings) => void;
+}
+
+export const ParkingList = ({ selectParkingHandler }: Props) => {
+  const { fetchingStatus, parkings } = useParkin();
 
   return (
     <div className="parkings-list">
