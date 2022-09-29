@@ -79,6 +79,25 @@ namespace Application_Parking_Bicis.Servicios
 
             return response;
         }
+
+        public async Task<ServiceComandResponse> ChangeParkingName(string newName, int parkingId)
+        {
+            ServiceComandResponse response = new ServiceComandResponse();
+            try
+            {
+                var parkingToChange = await _unitOfWork.ParkingRepository.Find(parkingId);
+                parkingToChange.ParkinName = newName;
+                var res = await _unitOfWork.ParkingRepository.Edit(parkingToChange, parkingId);
+
+                response.IsSuccess = true;
+                response.Response = res;
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+            }
+            return response;
+        }
     }
 }
 

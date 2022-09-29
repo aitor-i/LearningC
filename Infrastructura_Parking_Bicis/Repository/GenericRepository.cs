@@ -63,6 +63,17 @@ namespace Infrastructura_Parking_Bicis
             return await _ctx.Set<T>().Where(predicate).ToListAsync();
             
         }
+
+        public async Task<int> Edit(T newElement, int id)
+        {
+            T? element = await _ctx.Set<T>().FindAsync(id);
+            element = newElement;
+            await _ctx.SaveChangesAsync();
+            return element.Id;
+            // var user
+            // var user.username = newUsername
+            // await _ctx.SaveChangesAsync()
+        }
     }
 }
 

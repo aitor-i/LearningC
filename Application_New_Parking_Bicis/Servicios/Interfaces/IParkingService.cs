@@ -12,6 +12,7 @@ namespace Application_Parking_Bicis.Servicios.Interfaces
 		Task<ServiceQueryResponse<ParkingViewModel>> GetAllParkings();
 		Task<ServiceQueryResponse<ParkingViewModel>> FindParking(int id);
 		Task<ServiceComandResponse> NewParking(NewParkingForm parkingForm);
+		Task<ServiceComandResponse> ChangeParkingName(string newName, int parkingId);
 
     }
 }
