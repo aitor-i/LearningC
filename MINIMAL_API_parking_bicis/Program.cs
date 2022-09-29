@@ -194,6 +194,12 @@ app.MapPost("Parking/NewPArking", async Task<IResult> (IMediator _mediator, NewP
     if (!response.IsSuccess) Results.StatusCode(500);
     return Results.Ok(response.Response);
 });
+app.MapPut("Parking/ChangeParkingName", async Task<IResult> (IMediator _mediator, string newName, int parkingId) =>
+{
+    var response = await _mediator.Send(new ChangeParkingNameRequest(newName, parkingId));
+    if (!response.IsSuccess) Results.StatusCode(500);
+    return Results.Ok(response.Response);
+});
 
 // API run
 app.UseCors("myCors");
