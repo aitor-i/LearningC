@@ -22,7 +22,7 @@ export const SearchComponent = ({ setFetchingStatus, setHistory }: Props) => {
     setSearchedHistory({ searchParam, setFetchingStatus, setHistory });
   };
   return (
-    <form className="search-component">
+    <form className="search-component" aria-label="search-form">
       <input type="text" onChange={searchParamHandler} />
       <button onClick={searchActionHandler}>Search</button>
     </form>
