@@ -80,17 +80,19 @@ namespace Application_Parking_Bicis.Servicios
             return response;
         }
 
-        public async Task<ServiceComandResponse> ChangeParkingName(string newName, int parkingId)
+        public async Task<ServiceComandResponse> ChangeParkingName(ParkingViewModel newParking)
         {
             ServiceComandResponse response = new ServiceComandResponse();
             try
             {
-                var parkingToChange = await _unitOfWork.ParkingRepository.Find(parkingId);
-                parkingToChange.ParkinName = newName;
-                var res = await _unitOfWork.ParkingRepository.Edit(parkingToChange, parkingId);
+                //any(parkingId)
+                // var modelledParking = _mapper.Map<Parkings>(newParking);
+                var parking = await _unitOfWork.ParkingRepository.Find(newParking.Id);
+                parking.ParkinName = newParking.ParkinName;
+                var res = await _unitOfWork.ParkingRepository.Edit(parking, newParking.Id);
 
                 response.IsSuccess = true;
-                response.Response = res;
+                response.Response = res.Id;
             }
             catch (Exception ex)
             {

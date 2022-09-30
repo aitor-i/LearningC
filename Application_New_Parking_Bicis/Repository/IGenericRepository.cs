@@ -12,7 +12,7 @@ namespace Application_Parking_Bicis.Repository
         IQueryable<T> GetQuery(Expression<Func<T, bool>> predicate);
         Task<T?> Find(int id);
 		Task<IEnumerable<T>> Search(Expression<Func<T,bool>> predicate);
-        Task<int> Edit(T newElement, int id);
+        Task<T> Edit(T newElement, int id);
 
 
     }

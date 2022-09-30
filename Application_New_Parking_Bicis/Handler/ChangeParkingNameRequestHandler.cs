@@ -17,7 +17,7 @@ namespace Application_Parking_Bicis.Handler
     
         public async Task<ServiceComandResponse> Handle(ChangeParkingNameRequest request, CancellationToken cancellationToken)
         {
-            return await _service.ChangeParkingName(request.NewParkingName, request.ParkingId);
+            return await _service.ChangeParkingName(request.NewParkin);
         }
     }
 }

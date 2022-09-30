@@ -64,12 +64,13 @@ namespace Infrastructura_Parking_Bicis
             
         }
 
-        public async Task<int> Edit(T newElement, int id)
+        public async Task<T> Edit(T newElement, int id)
         {
-            T? element = await _ctx.Set<T>().FindAsync(id);
+            var element = await _ctx.Set<T>().FindAsync(id);
             element = newElement;
-            await _ctx.SaveChangesAsync();
-            return element.Id;
+             _ctx.SaveChanges();
+
+            return element;
             // var user
             // var user.username = newUsername
             // await _ctx.SaveChangesAsync()

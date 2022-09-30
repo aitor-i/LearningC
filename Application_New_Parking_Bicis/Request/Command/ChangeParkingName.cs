@@ -1,17 +1,18 @@
 ﻿using System;
 using Application_Parking_Bicis.Message;
+using Application_Parking_Bicis.ViewModels;
 using MediatR;
 
 namespace Application_Parking_Bicis.Request.Command
 {
 	public class ChangeParkingNameRequest:IRequest<ServiceComandResponse>
 	{
-		public string NewParkingName { get; set; }
-		public int ParkingId { get; set; }
-		public ChangeParkingNameRequest(string newParkingName, int parkingId)
+		public ParkingViewModel NewParkin { get; set; }
+
+		public ChangeParkingNameRequest(ParkingViewModel newParking)
 		{
-			NewParkingName = newParkingName;
-			ParkingId = parkingId;
+
+			NewParkin = newParking;
 		}
 	}
 }

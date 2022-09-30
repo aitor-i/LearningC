@@ -194,9 +194,9 @@ app.MapPost("Parking/NewPArking", async Task<IResult> (IMediator _mediator, NewP
     if (!response.IsSuccess) Results.StatusCode(500);
     return Results.Ok(response.Response);
 });
-app.MapPut("Parking/ChangeParkingName", async Task<IResult> (IMediator _mediator, string newName, int parkingId) =>
+app.MapPut("Parking/ChangeParkingName", async Task<IResult> (IMediator _mediator, ParkingViewModel newParkingObject) =>
 {
-    var response = await _mediator.Send(new ChangeParkingNameRequest(newName, parkingId));
+    var response = await _mediator.Send(new ChangeParkingNameRequest(newParkingObject));
     if (!response.IsSuccess) Results.StatusCode(500);
     return Results.Ok(response.Response);
 });
