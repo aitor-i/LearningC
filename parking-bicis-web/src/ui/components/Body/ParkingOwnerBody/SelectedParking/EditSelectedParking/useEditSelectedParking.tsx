@@ -35,5 +35,16 @@ export const useEditSelectedParking = (
     event.preventDefault();
     changeParkingName(selectedParking!, newParkingName!);
   };
-  return { editNameHandler, onSaveHandler, newParkingName, loadingStatus };
+
+  const onCancelHandler = () => {
+    if (loadingStatus === "loading") return;
+    changeToViewMode();
+  };
+  return {
+    editNameHandler,
+    onSaveHandler,
+    newParkingName,
+    loadingStatus,
+    onCancelHandler,
+  };
 };
