@@ -1,19 +1,21 @@
-import React, { useState } from "react";
 import { Parkings } from "../../../../../../core/domain/type/Parkings";
+import Spinner from "../../../../Spinner";
+import { useEditSelectedParking } from "./useEditSelectedParking";
 
 interface Props {
   selectedParking: Parkings | undefined;
+  changeToViewMode: () => void;
 }
 
-export const EditSelectedParking = ({ selectedParking }: Props) => {
-  const [newParkingName, setNewParkingName] = useState(
-    selectedParking?.parkinName
-  );
-  const editNameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewParkingName(event.target.value);
-  };
+export const EditSelectedParking = ({
+  selectedParking,
+  changeToViewMode,
+}: Props) => {
+  const { editNameHandler, onSaveHandler, newParkingName, loadingStatus } =
+    useEditSelectedParking(changeToViewMode, selectedParking!);
+
   return (
-    <div className="parking-data">
+    <form className="parking-data" onSubmit={onSaveHandler}>
       <p>{selectedParking?.id}</p>
       <input
         type="text"
@@ -22,7 +24,7 @@ export const EditSelectedParking = ({ selectedParking }: Props) => {
         value={newParkingName}
       />
       <p>{selectedParking?.username}</p>
-      <button>Save</button>
-    </div>
+      <button>{loadingStatus === "loading" ? <Spinner /> : "Save"}</button>
+    </form>
   );
 };

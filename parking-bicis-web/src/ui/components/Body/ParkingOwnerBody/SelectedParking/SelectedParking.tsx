@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Parkings } from "../../../../../core/domain/type/Parkings";
 import { EditSelectedParking } from "./EditSelectedParking/EditSelectedParking";
 import "./selected-parking.css";
@@ -6,6 +7,14 @@ interface Props {
 }
 
 export const SelectedParking = ({ selectedParking }: Props) => {
+  const [isEditMode, setIsEditMode] = useState(false);
+  const changeToEditModeHandler = () => {
+    setIsEditMode(true);
+  };
+
+  const changeToViewMode = () => {
+    setIsEditMode(false);
+  };
   if (selectedParking)
     return (
       <div className="selected-parking-container">
@@ -16,13 +25,19 @@ export const SelectedParking = ({ selectedParking }: Props) => {
           <p>Username</p>
           <p></p>
         </div>
-        <div className="parking-data">
-          <p>{selectedParking?.id}</p>
-          <p>{selectedParking?.parkinName}</p>
-          <p>{selectedParking?.username}</p>
-          <button>Edit</button>
-        </div>
-        <EditSelectedParking selectedParking={selectedParking} />
+        {isEditMode ? (
+          <EditSelectedParking
+            selectedParking={selectedParking}
+            changeToViewMode={changeToViewMode}
+          />
+        ) : (
+          <div className="parking-data">
+            <p>{selectedParking?.id}</p>
+            <p>{selectedParking?.parkinName}</p>
+            <p>{selectedParking?.username}</p>
+            <button onClick={changeToEditModeHandler}>Edit</button>
+          </div>
+        )}
       </div>
     );
   else {
