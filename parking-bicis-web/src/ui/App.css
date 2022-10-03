@@ -48,6 +48,17 @@ button:active {
   transform: scale(0.95);
   transition: transform 0.5s;
 }
+
+.cancel {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+}
+.cancel:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+}
+
 button:hover {
   background-color: rgba(255, 255, 255, 0.75);
 }
