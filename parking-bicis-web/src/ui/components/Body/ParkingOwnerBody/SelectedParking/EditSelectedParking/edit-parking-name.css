@@ -1,0 +1,28 @@
+.parking-data input {
+  background-color: rgba(225, 225, 225, 0.6);
+  border: 1px solid rgba(225, 225, 225, 0.7);
+}
+
+.parking-data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.parking-data * {
+  width: 50%;
+}
+
+.button-container {
+  height: 130%;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+
+.button-container button {
+  padding: 0.5rem;
+  width: 100%;
+}
