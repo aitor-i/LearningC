@@ -15,20 +15,20 @@ export const RegisterForm = () => {
   return (
     <form className="register-form" ref={registerRef}>
       <h2>Register</h2>
-      <h3>Name</h3>
       <input
         type="text"
         name="username"
         onChange={nameHandler}
         aria-label="username"
       />
-      <h3>Password</h3>
+      <label>Name</label>
       <input
         type="password"
         name="'password"
         onChange={passwordHandler}
         aria-label="password"
       />
+      <label>Password</label>
       <h3>Type</h3>
       <select onChange={selectParkingHandler} name="pname" id="pname">
         <option value={1}>Bike user</option>
