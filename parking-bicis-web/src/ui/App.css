@@ -66,6 +66,32 @@ button:hover {
 input {
   height: 24px;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 3px solid rgba(255, 255, 255, 0.38);
   background-color: rgba(255, 255, 255, 0.95);
+}
+
+input:focus-visible {
+  outline-color: transparent;
+}
+
+form h2 {
+  margin-bottom: 3rem;
+}
+
+label {
+  position: relative;
+  bottom: 33px;
+  right: -10px;
+  transition: 0.3s;
+}
+
+input {
+  background-color: transparent;
+  color: white;
+}
+
+input:hover + label,
+input:focus-visible + label,
+label:hover {
+  bottom: 66px;
 }
