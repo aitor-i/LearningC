@@ -9,21 +9,25 @@ export const LoginForm = () => {
   return (
     <form className="login-form" onSubmit={submitHandler}>
       <h2>Login </h2>
-      <h3>Username</h3>
 
       <input
         type="text"
         name="username"
         onChange={nameHandler}
         aria-label="username"
+        className="username"
+        required
       />
-      <h3>Password</h3>
+      <label className="username">Username</label>
       <input
         type="password"
         name="'password"
         onChange={passwordHandler}
         aria-label="password"
+        className="password"
+        required
       />
+      <label className="password">Password</label>
       {fetchingStatus === "loading" ? <Spinner /> : <button>Submit</button>}
     </form>
   );
