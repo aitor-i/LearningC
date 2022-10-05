@@ -4,3 +4,25 @@
   gap: 5px;
   width: 60%;
 }
+.login-form h2 {
+  margin-bottom: 3rem;
+}
+
+.login-form label {
+  position: relative;
+  bottom: 33px;
+  right: -10px;
+  transition: 0.3s;
+}
+
+.login-form input {
+  background-color: transparent;
+  color: white;
+}
+
+.login-form input:hover + label,
+.login-form input:valid + label,
+.login-form input:focus-visible + label,
+.login-form label:hover {
+  bottom: 66px;
+}
