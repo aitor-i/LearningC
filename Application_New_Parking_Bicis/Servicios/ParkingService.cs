@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Application_Parking_Bicis.Message;
 using Application_Parking_Bicis.Servicios.Interfaces;
 using Application_Parking_Bicis.UOW;
+using Application_Parking_Bicis.Validators;
 using Application_Parking_Bicis.ViewModels;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -67,11 +69,26 @@ namespace Application_Parking_Bicis.Servicios
             ServiceComandResponse response = new ServiceComandResponse();
             try
             {
+                NewParkingFormValidator validator = new NewParkingFormValidator();
+                var result = validator.Validate(parkingForm);
+                if (!result.IsValid)
+                {
+                    foreach (var failure in result.Errors)
+                    {
+                        Console.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+                        response.Message =  response.Message + "Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage + "\n";
+                    }
+                    throw new Exception();
+                }
+                else
+                {
+
                 var parking = _mapper.Map<Parkings>(parkingForm);
                 var res = await _unitOfWork.ParkingRepository.Insert(parking);
                 response.IsSuccess = true;
                 response.Response = res;
-            }
+                }
+                }
             catch (Exception ex)
             {
                 response.IsSuccess = false;

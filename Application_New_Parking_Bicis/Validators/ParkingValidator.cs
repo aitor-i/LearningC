@@ -9,7 +9,7 @@ namespace Application_Parking_Bicis.Validators
 		public ParkingValidator()
 		{
 
-			RuleFor(parking => parking.ParkinName).NotEmpty();
+			RuleFor(parking => parking.ParkinName).Length(5, 25);
 			RuleFor(parking => parking.UsersId).NotNull().NotEmpty();
 		}
 	}
