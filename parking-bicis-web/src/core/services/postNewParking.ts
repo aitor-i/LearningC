@@ -1,7 +1,7 @@
 import { NewParkingForm } from "../domain/type/NewParkingForm";
 
 export const postNewParking = async (newParking: NewParkingForm) => {
-  const response = fetch(
+  const response: Promise<Response> = fetch(
     `${process.env.REACT_APP_API_URL}/Parking/NewPArking`,
     {
       method: "POST",
@@ -12,6 +12,10 @@ export const postNewParking = async (newParking: NewParkingForm) => {
     }
   );
 
-  if (!(await response).ok) throw new Error((await response).toString());
+  // if (!(await response).ok) {
+  //   const error = new Error();
+  //   error.message =  response.toString();
+  //   throw error;
+  // }
   return (await response).json();
 };

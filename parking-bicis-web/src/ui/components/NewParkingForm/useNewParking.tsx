@@ -18,10 +18,15 @@ export const useNewParking = () => {
     event.preventDefault();
     try {
       setLoadingState("loading");
-      const res: number = await postNewParking({
+      const res: Response = await postNewParking({
         usersId: user.usersId,
         parkinName: parkingName,
       });
+      if (!res.ok) {
+        const error = new Error();
+        error.message = res.toString();
+        throw error;
+      }
 
       alert(`Parking published, parking id: ${res}`);
       setLoadingState("success");
