@@ -184,20 +184,21 @@ app.MapPost("Users/Login", async Task<IResult> (IMediator _mediator, LoginViewMo
 app.MapGet("Parking/AllParkings", async Task<IResult> (IMediator _mediator) =>
 {
     var response = await _mediator.Send<ServiceQueryResponse<ParkingViewModel>>(new GetAllParkingRequest());
-    if (!response.IsSuccess) Results.StatusCode(500);
+    if (!response.IsSuccess) return Results.StatusCode(500);
     return Results.Ok(response.Data);
 });
 
 app.MapPost("Parking/NewPArking", async Task<IResult> (IMediator _mediator, NewParkingForm parkingForm) =>
 {
     var response = await _mediator.Send(new NewParkingRequest(parkingForm));
-    if (!response.IsSuccess) Results.StatusCode(500);
+    if (!response.IsSuccess) return Results.BadRequest( response.Message);
+
     return Results.Ok(response.Response);
 });
 app.MapPut("Parking/ChangeParkingName", async Task<IResult> (IMediator _mediator, ParkingViewModel newParkingObject) =>
 {
     var response = await _mediator.Send(new ChangeParkingNameRequest(newParkingObject));
-    if (!response.IsSuccess) Results.StatusCode(500);
+    if (!response.IsSuccess) return Results.StatusCode(500);
     return Results.Ok(response.Response);
 });
 
