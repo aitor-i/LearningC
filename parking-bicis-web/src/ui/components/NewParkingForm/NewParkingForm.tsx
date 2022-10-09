@@ -9,6 +9,7 @@ export const NewParkingForm = () => {
     <form className="parking-form">
       <h3>Parking Name</h3>
       <input type="text" name="parking-name" onChange={parkingNameHandler} />
+      <label>New Parking's Name</label>
       {loadingState === "loading" ? (
         <Spinner />
       ) : (

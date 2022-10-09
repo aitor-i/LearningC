@@ -1,4 +1,12 @@
-import { render, screen } from "@testing-library/react";
+import {
+  findByRole,
+  findByTestId,
+  getByTestId,
+  render,
+  screen,
+} from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { faker } from "@faker-js/faker";
 
 import { LoginContextProvider } from "../../../store/loging-ctx";
 import { MainLoginPage } from "../MainLoginPage";
@@ -64,6 +72,26 @@ describe("Login form", () => {
     const inputBox = screen.getByLabelText(/password/i);
 
     expect(inputBox.type).toBe("password");
+  });
+
+  it("should collect username and password", async () => {
+    renderLoginForm();
+
+    const username = faker.name.fullName();
+    const password = faker.internet.password();
+
+    const usernameInput = screen.getByLabelText(/password/i);
+    const passwordInput = screen.getByLabelText(/username/i);
+    userEvent.type(usernameInput, username);
+    expect(usernameInput.value).toBe(username);
+
+    userEvent.type(passwordInput, password);
+    expect(passwordInput.value).toBe(password);
+    const submit = screen.getByRole("button", { name: /submit/i });
+    userEvent.click(submit);
+    const spinner = await screen.findByTestId("spinner");
+
+    expect(spinner.className).toBe("spinner");
   });
 });
 

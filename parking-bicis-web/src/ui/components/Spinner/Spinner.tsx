@@ -1,5 +1,5 @@
 import "./spinner.css";
 
 export const Spinner = () => {
-  return <span className="spinner"></span>;
+  return <span data-testid="spinner" className="spinner"></span>;
 };

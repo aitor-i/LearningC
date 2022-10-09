@@ -73,8 +73,10 @@ input {
 input:focus-visible {
   outline-color: transparent;
 }
-
-form h2 {
+form h3 {
+  margin-bottom: 3rem;
+}
+h2 {
   margin-bottom: 3rem;
 }
 
