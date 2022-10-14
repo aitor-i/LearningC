@@ -13,4 +13,10 @@ describe("History component", () => {
 
     expect(button.textContent).toBe("Refresh");
   });
+
+  it("should render spinner", () => {
+    render(<History />);
+
+    expect(screen.getByTestId("spinner")).not.toBe(undefined);
+  });
 });
