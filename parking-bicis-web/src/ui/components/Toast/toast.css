@@ -1,0 +1,49 @@
+.toast {
+  max-width: 40rem;
+  min-width: 10rem;
+  text-align: center;
+  border: 3px solid rgba(255, 255, 255, 0.38);
+  background-color: rgba(255, 255, 255, 0.75);
+  opacity: 1;
+  color: black;
+  position: absolute;
+  right: 50%;
+  transform: translate(50%);
+  border-radius: 5px;
+  padding: 0px 1rem;
+  max-height: 3rem;
+  position: fixed;
+  top: -60px;
+  animation-name: appear, fadeout;
+  animation-duration: 3s, 1s;
+  animation-delay: 0s, 2.5s;
+}
+
+.toast-error {
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  background-color: rgba(207, 87, 87, 0.8);
+  color: white;
+}
+
+@keyframes appear {
+  form {
+    top: -60px;
+    opacity: 0;
+  }
+
+  to {
+    top: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  form {
+    top: 30px;
+    opacity: 1;
+  }
+  to {
+    top: -60px;
+    opacity: 0;
+  }
+}
