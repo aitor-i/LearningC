@@ -1,10 +1,4 @@
-import {
-  findByRole,
-  findByTestId,
-  getByTestId,
-  render,
-  screen,
-} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { faker } from "@faker-js/faker";
 
@@ -12,6 +6,8 @@ import { LoginContextProvider } from "../../../store/loging-ctx";
 import { MainLoginPage } from "../MainLoginPage";
 import { LoginForm } from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterForm";
+
+import ReactDOM from "react-dom";
 
 const renderMainLoginPage = () => {
   render(
@@ -38,6 +34,15 @@ const renderRegisterForm = () => {
 };
 
 describe("Main Login Page", () => {
+  beforeAll(() => {
+    ReactDOM.createPortal = jest.fn((element, node) => {
+      return element;
+    });
+  });
+
+  afterEach(() => {
+    ReactDOM.createPortal.mockClear();
+  });
   it("should render MainLoginPage", () => {
     renderMainLoginPage();
   });
