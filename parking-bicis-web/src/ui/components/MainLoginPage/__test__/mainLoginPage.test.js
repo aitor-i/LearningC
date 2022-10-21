@@ -98,6 +98,11 @@ describe("Login form", () => {
 
     expect(spinner.className).toBe("spinner");
   });
+  it("should find toast", async () => {
+    renderLoginForm();
+
+    await screen.findByText(/error/i);
+  });
 });
 
 describe("Register from", () => {
