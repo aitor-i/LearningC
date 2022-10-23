@@ -29,7 +29,6 @@ export const useLogin = () => {
       console.log(error);
 
       setFetchingStatus("error");
-      alert(error);
     }
   };
 
