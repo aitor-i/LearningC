@@ -7,7 +7,23 @@ import { MainLoginPage } from "../MainLoginPage";
 import { LoginForm } from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterForm";
 
+import { rest } from "msw";
+import { setupServer } from "msw/node";
+
 import ReactDOM from "react-dom";
+
+const server = setupServer(
+  rest.post("http://localhost:8460/Users/login", async (req, res, ctx) => {
+    const loginResponse = {
+      usersId: "",
+      isLogged: false,
+      userType: "",
+      username: req.username,
+      password: null,
+    };
+    return res(ctx.json(loginResponse));
+  })
+);
 
 const renderMainLoginPage = () => {
   render(
@@ -38,7 +54,10 @@ describe("Main Login Page", () => {
     ReactDOM.createPortal = jest.fn((element, node) => {
       return element;
     });
+    server.listen();
   });
+
+  afterAll(() => server.close());
 
   afterEach(() => {
     ReactDOM.createPortal.mockClear();
@@ -97,11 +116,6 @@ describe("Login form", () => {
     const spinner = await screen.findByTestId("spinner");
 
     expect(spinner.className).toBe("spinner");
-  });
-  it("should find toast", async () => {
-    renderLoginForm();
-
-    await screen.findByText(/error/i);
   });
 });
 
