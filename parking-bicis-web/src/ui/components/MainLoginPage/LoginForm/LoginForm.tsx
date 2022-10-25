@@ -33,6 +33,9 @@ export const LoginForm = () => {
           required
         />
         <label className="password">Password</label>
+        {fetchingStatus === "error" && (
+          <p style={{ color: "red" }}>Error login</p>
+        )}
         {fetchingStatus === "loading" ? <Spinner /> : <button>Submit</button>}
       </form>
     </>
