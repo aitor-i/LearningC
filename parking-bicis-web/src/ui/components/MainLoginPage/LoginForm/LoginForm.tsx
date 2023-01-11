@@ -10,7 +10,10 @@ export const LoginForm = () => {
   return (
     <>
       {fetchingStatus === "error" && (
-        <RenderToast className="toast-error" children={<p>Error</p>} />
+        <RenderToast
+          className="toast-error"
+          children={<p data-testid="error-toast">Error</p>}
+        />
       )}
       <form className="login-form" onSubmit={submitHandler}>
         <h2>Login </h2>
@@ -33,9 +36,7 @@ export const LoginForm = () => {
           required
         />
         <label className="password">Password</label>
-        {fetchingStatus === "error" && (
-          <p style={{ color: "red" }}>Error login</p>
-        )}
+
         {fetchingStatus === "loading" ? <Spinner /> : <button>Submit</button>}
       </form>
     </>
