@@ -117,6 +117,30 @@ describe("Login form", () => {
 
     expect(spinner.className).toBe("spinner");
   });
+  it("should show error login on fake credentials", async () => {
+    renderLoginForm();
+
+    ReactDOM.createPortal = jest.fn((element, node) => {
+      return element;
+    });
+
+    const username = faker.name.fullName();
+    const password = faker.internet.password();
+
+    const usernameInput = screen.getByLabelText(/password/i);
+    const passwordInput = screen.getByLabelText(/username/i);
+    userEvent.type(usernameInput, username);
+    userEvent.type(passwordInput, password);
+
+    const submit = screen.getByRole("button", { name: /submit/i });
+    userEvent.click(submit);
+
+    const errorToast = await screen.findByTestId("error-toast");
+    const errorMessage = String(errorToast.textContent);
+
+    // expect(errorToast.innerText).toMatchInlineSnapshot("Error");
+    expect(errorMessage).toMatch(/error/i);
+  });
 });
 
 describe("Register from", () => {
